@@ -1,4 +1,4 @@
-package calculadora;
+package cida;
 import calculadora.lexer.*;
 import calculadora.node.*;
 import java.io.*;

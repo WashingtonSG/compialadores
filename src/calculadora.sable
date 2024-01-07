@@ -1,23 +1,68 @@
-Package calculadora;
+Package cida;
 
 Helpers
  digito = ['0' .. '9'];
+ minusculo = ['a' .. 'z'];
+ maiusculo = ['A' .. 'Z'];
+ letra = (maiusculo | minusculo);
+ letras = letra*;
+ digitos = digito*;
+ numero_real = digitos+'.'+digitos;
+ letras_ou_digitos = letras | digitos;
+ underline = '_';
  espaco = ' ';
+ tudo_unicode = [0..0xffff];
+ string_input = [tudo_unicode - ['''+'"']];
+ comentario_blc = [tudo_unicode - '{'];
  rc = 13;
  nl = 10;
+ ht	= 0x0009;
+ lf	= 0x000a;
+ ff	= 0x000c;
+ cr	= 0x000d;
+ eol = cr | nl | cr | nl ;
+ blank = rc | nl | ht | lf | ff | cr;
  
+  
 Tokens
- numero = digito+;
+ // Delimitadores
+ abre_bloco = 'start';
+ fecha_bloco = 'finish';
+ par_esq = '(';
+ par_dir = ')';
+ dois_pontos = ':';
+ virgula = ',';
+ ponto_virgula = ';';
+ ponto = '.';
+ 
+  // Operacoes Matematicas e Logicas
+ numeros = digitos | numero_real;
  soma = '+';
  menos = '-';
  mult = '*';
  div = '/';
  mod = '%';
- par_esq = '(';
- par_dir = ')';
- vazio = (espaco | rc | nl)+;
+ atribuicao = '=';
+ 
+ // Operacoes Logicas
+ menor = '<';
+ menor_igual = '<=';
+ comparacao = '==';
+ negacao = '!';
+ dois_maior = '>>';
+ 
+ 
+ // Comentarios
+ comentario_linha = ('--'[tudo_unicode-[cr+nl]]*);
+ comentario_bloco = ('{-'comentario_blc*'-}');
 
+// Identificadores
 
+// Vazio
+ vazio = (espaco | '\t' | '\n' | '\r' | blank)+;
+ 
 Ignored Tokens
+ comentario_bloco,
+ comentario_linha,
  vazio;
-
+ 
