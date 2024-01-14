@@ -1,0 +1,25 @@
+{-
+	Código simples para testar a linguagem Cida.
+-}
+
+code clima
+start
+	alterable answer temChuva, temSol.
+
+	show("Tem chuva? yes/no").
+	capture(temChuva).
+	show("Tem sol? yes/no").
+	capture(temSol).
+
+	in case that (temChuva and temSol) do
+		show("Ha um arco-iris").
+	in case that (temChuva xor temSol) do
+		show("Esta nublado").
+	in case that (not temSol) do
+		show("Tem chuva").
+	in case that (temChuva or temSol) do 
+		show("Existe algum clima").
+	otherwise 
+		show("Voce esta em um mundo apocaliptico")
+
+finish

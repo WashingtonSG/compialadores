@@ -1,6 +1,6 @@
 package cida;
-import calculadora.lexer.*;
-import calculadora.node.*;
+import cida.lexer.*;
+import cida.node.*;
 import java.io.*;
 
 public class Main
@@ -9,7 +9,7 @@ public class Main
 	{
 		try
 		{
-			String arquivo = "teste/teste.calc";
+			String arquivo = "teste/clima.ci";
 
 			Lexer lexer =
 					new Lexer(

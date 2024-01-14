@@ -117,6 +117,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTAspas(TAspas node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTNumeros(TNumeros node)
     {
         defaultCase(node);
@@ -184,6 +190,36 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTDoisMaior(TDoisMaior node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTInCase(TInCase node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTConsidering(TConsidering node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAsLongAs(TAsLongAs node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTCode(TCode node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTShow(TShow node)
     {
         defaultCase(node);
     }

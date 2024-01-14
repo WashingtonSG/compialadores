@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TPipe extends Token
+public final class TShow extends Token
 {
-    public TPipe()
+    public TShow()
     {
-        super.setText("|");
+        super.setText("show");
     }
 
-    public TPipe(int line, int pos)
+    public TShow(int line, int pos)
     {
-        super.setText("|");
+        super.setText("show");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TPipe extends Token
     @Override
     public Object clone()
     {
-      return new TPipe(getLine(), getPos());
+      return new TShow(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTPipe(this);
+        ((Analysis) sw).caseTShow(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TPipe text.");
+        throw new RuntimeException("Cannot change TShow text.");
     }
 }

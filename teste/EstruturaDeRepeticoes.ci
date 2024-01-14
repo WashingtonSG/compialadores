@@ -1,0 +1,38 @@
+{-
+    Lê um array de n numeros > 0 e calcula a media
+-}
+
+
+code media
+start
+
+    alterable number quantidadeNumeros.
+    alterable number somatorio.
+
+    somatorio << 0.
+    media << 0.
+
+    show("Digite a quantidade de numeros").
+    capture(quantidadeNumeros).
+
+    alterable number vector [quantidadeNumeros] numeros.
+    
+    considering index from 1 to quantidadeNumeros do
+        show("digite o numero: ").
+        capture(numeros[index]).
+
+        as long as (numeros[index] < 0) do
+            show("digite novamente o número(um numero maior que zero): ").
+            capture(numeros[index]).
+
+        somatorio << somatorio + numeros[index].
+
+    media << somatorio / quantidadeNumeros.
+
+    show("somatorio:", somatorio).
+    show("media: ", media).
+
+finish
+
+    
+    

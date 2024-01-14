@@ -14,6 +14,7 @@ Helpers
  tudo_unicode = [0..0xffff];
  string_input = [tudo_unicode - ['''+'"']];
  comentario_blc = [tudo_unicode - '{'];
+ answer = 'yes' | 'no';
  rc = 13;
  nl = 10;
  ht	= 0x0009;
@@ -21,7 +22,7 @@ Helpers
  ff	= 0x000c;
  cr	= 0x000d;
  eol = cr | nl | cr | nl ;
- blank = rc | nl | ht | lf | ff | cr;
+ blank = rc | nl | ht | lf | ff | cr ;
  
   
 Tokens
@@ -34,6 +35,7 @@ Tokens
  virgula = ',';
  ponto_virgula = ';';
  ponto = '.';
+ aspas = '"';
  
   // Operacoes Matematicas e Logicas
  numeros = digitos | numero_real;
@@ -51,6 +53,13 @@ Tokens
  negacao = '!';
  dois_maior = '>>';
  
+ // Tokens de Controle
+  in_case = 'in case that'; 
+  considering = 'considering';
+  as_long_as = 'as long as';
+ 
+ code = ('code' [tudo_unicode-[cr+nl]]*);
+ show = 'show';
  
  // Comentarios
  comentario_linha = ('--'[tudo_unicode-[cr+nl]]*);
@@ -59,10 +68,11 @@ Tokens
 // Identificadores
 
 // Vazio
- vazio = (espaco | '\t' | '\n' | '\r' | blank)+;
+ vazio = (espaco | '\t' | '\n' | '\r' | blank )+;
  
 Ignored Tokens
  comentario_bloco,
  comentario_linha,
  vazio;
+
  

@@ -1,0 +1,41 @@
+code MinhaCalculadora
+start
+    alterable number resultado.
+    alterable number opcao.
+    alterable number segundoOperando.
+
+    capture("Digite o primeiro número: ", resultado).
+    capture("Digite o segundo número: ", segundoOperando).
+    show("Operações disponíveis:\n");
+    show("1. Adição\n");
+    show("2. Subtração\n");
+    show("3. Multiplicação\n");
+    show("4. Divisão\n");
+    
+    capture("Escolha a operação (1-4): ", opcao).
+
+    in case that (opcao == 1) do
+        resultado << resultado + segundoOperando.
+    otherwise
+        in case that (opcao == 2) do
+            resultado << resultado - segundoOperando.
+        otherwise
+            in case that (opcao == 3) do
+                resultado << resultado * segundoOperando.
+            otherwise
+                in case that (opcao == 4) do
+                    in case that (segundoOperando != 0) do
+                        resultado << resultado / segundoOperando.
+                    otherwise
+                        show("Erro: Divisão por zero não é permitida.\n").
+                    finish.
+                otherwise
+                    show("Opção inválida.\n").
+                finish.
+            finish.
+        finish.
+    finish.
+
+    show("Resultado: ", resultado, ".\n").
+
+finish.
