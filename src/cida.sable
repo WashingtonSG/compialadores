@@ -66,6 +66,12 @@ Tokens
  comentario_bloco = ('{-'comentario_blc*'-}');
 
 // Identificadores
+ id = maiusculo letras;
+
+// Tipos primitivos
+ symbol = 'letras_ou_digitos' | 'vazio';
+ number = digitos numero_real;
+ answer = answer ;
 
 // Vazio
  vazio = (espaco | '\t' | '\n' | '\r' | blank )+;
