@@ -23,8 +23,9 @@ Helpers
  cr	= 0x000d;
  eol = cr | nl | cr | nl ;
  blank = rc | nl | ht | lf | ff | cr ;
+ tipos = 'symbol' | 'number' | 'answer';
+ dimensao = '[' digito ']';
  
-  
 Tokens
  // Delimitadores
  abre_bloco = 'start';
@@ -72,10 +73,14 @@ Tokens
  modificadores = 'unalterable' | 'alterable' ;
 
 // Tipos primitivos
- symbol = 'letras_ou_digitos' | 'vazio';
+ symbol = 'tudo_unicode';
  number = digitos numero_real;
  answer = 'yes'|'no' ;
 
+// Vetores
+ vetor_symbol = '"' tudo_unicode* '"';
+ vetores = tipos dimensao+ letras;
+ 
 // Vazio
  vazio = (espaco | '\t' | '\n' | '\r' | blank )+;
  
