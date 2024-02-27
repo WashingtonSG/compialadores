@@ -195,7 +195,19 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTInCase(TInCase node)
+    public void caseTIn(TIn node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTCase(TCase node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTThat(TThat node)
     {
         defaultCase(node);
     }
@@ -207,7 +219,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTAsLongAs(TAsLongAs node)
+    public void caseTAs(TAs node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTLong(TLong node)
     {
         defaultCase(node);
     }
@@ -225,6 +243,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTCapture(TCapture node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTComentarioLinha(TComentarioLinha node)
     {
         defaultCase(node);
@@ -232,6 +256,48 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTComentarioBloco(TComentarioBloco node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTId(TId node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTModificadores(TModificadores node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTSymbol(TSymbol node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTNumber(TNumber node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAnswer(TAnswer node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTVetorSymbol(TVetorSymbol node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTVetores(TVetores node)
     {
         defaultCase(node);
     }
