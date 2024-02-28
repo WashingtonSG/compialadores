@@ -37,6 +37,8 @@ Tokens
  ponto_virgula = ';';
  ponto = '.';
  aspas = '"';
+ colchete_esq = '[';
+ colchete_dir = ']';
  
   // Operacoes Matematicas e Logicas
  numeros = digitos | numero_real;
@@ -45,7 +47,7 @@ Tokens
  mult = '*';
  div = '/';
  mod = '%';
- atribuicao = '=';
+ atribuicao = '<<';
  
  // Operacoes Logicas
  menor = '<';
@@ -88,6 +90,7 @@ Tokens
  symbol = 'tudo_unicode';
  number = digitos numero_real;
  answer = 'yes'|'no' ;
+ vector = 'vector';
 
 // Vetores
  vetor_symbol = '"' (string_input)* '"';

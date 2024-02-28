@@ -9,7 +9,7 @@ public class Main
 	{
 		try
 		{
-			String arquivo = "teste/clima.ci";
+			String arquivo = "teste/EstruturaDeRepeticoes.ci";
 
 			Lexer lexer =
 					new Lexer(

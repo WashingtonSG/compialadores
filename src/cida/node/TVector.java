@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TAtribuicao extends Token
+public final class TVector extends Token
 {
-    public TAtribuicao()
+    public TVector()
     {
-        super.setText("<<");
+        super.setText("vector");
     }
 
-    public TAtribuicao(int line, int pos)
+    public TVector(int line, int pos)
     {
-        super.setText("<<");
+        super.setText("vector");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TAtribuicao extends Token
     @Override
     public Object clone()
     {
-      return new TAtribuicao(getLine(), getPos());
+      return new TVector(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTAtribuicao(this);
+        ((Analysis) sw).caseTVector(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TAtribuicao text.");
+        throw new RuntimeException("Cannot change TVector text.");
     }
 }

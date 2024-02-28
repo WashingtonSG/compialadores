@@ -123,6 +123,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTColcheteEsq(TColcheteEsq node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTColcheteDir(TColcheteDir node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTNumeros(TNumeros node)
     {
         defaultCase(node);
@@ -334,6 +346,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTAnswer(TAnswer node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTVector(TVector node)
     {
         defaultCase(node);
     }

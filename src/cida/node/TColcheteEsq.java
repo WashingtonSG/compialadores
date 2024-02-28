@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TAtribuicao extends Token
+public final class TColcheteEsq extends Token
 {
-    public TAtribuicao()
+    public TColcheteEsq()
     {
-        super.setText("<<");
+        super.setText("[");
     }
 
-    public TAtribuicao(int line, int pos)
+    public TColcheteEsq(int line, int pos)
     {
-        super.setText("<<");
+        super.setText("[");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TAtribuicao extends Token
     @Override
     public Object clone()
     {
-      return new TAtribuicao(getLine(), getPos());
+      return new TColcheteEsq(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTAtribuicao(this);
+        ((Analysis) sw).caseTColcheteEsq(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TAtribuicao text.");
+        throw new RuntimeException("Cannot change TColcheteEsq text.");
     }
 }
