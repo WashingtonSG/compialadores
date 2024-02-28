@@ -59,8 +59,16 @@ Tokens
   case = 'case'; 
   that = 'that';
   considering = 'considering';
+  from = 'from';
+  to = 'to';
+  by = 'by';
   as = 'as';
   long = 'long';
+  and = 'and';
+  or = 'or';
+  not = 'not';
+  xor = 'xor';
+  do = 'do';
  
  code = ('code' [tudo_unicode-[cr+nl]]*);
  show = 'show';

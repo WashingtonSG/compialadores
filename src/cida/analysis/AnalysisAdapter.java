@@ -219,6 +219,24 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTFrom(TFrom node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTTo(TTo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTBy(TBy node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTAs(TAs node)
     {
         defaultCase(node);
@@ -226,6 +244,36 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTLong(TLong node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAnd(TAnd node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTOr(TOr node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTNot(TNot node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTXor(TXor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTDo(TDo node)
     {
         defaultCase(node);
     }

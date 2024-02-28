@@ -36,8 +36,16 @@ public interface Analysis extends Switch
     void caseTCase(TCase node);
     void caseTThat(TThat node);
     void caseTConsidering(TConsidering node);
+    void caseTFrom(TFrom node);
+    void caseTTo(TTo node);
+    void caseTBy(TBy node);
     void caseTAs(TAs node);
     void caseTLong(TLong node);
+    void caseTAnd(TAnd node);
+    void caseTOr(TOr node);
+    void caseTNot(TNot node);
+    void caseTXor(TXor node);
+    void caseTDo(TDo node);
     void caseTCode(TCode node);
     void caseTShow(TShow node);
     void caseTCapture(TCapture node);
