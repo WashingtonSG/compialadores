@@ -5,14 +5,14 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TModificadores extends Token
+public final class TBooleano extends Token
 {
-    public TModificadores(String text)
+    public TBooleano(String text)
     {
         setText(text);
     }
 
-    public TModificadores(String text, int line, int pos)
+    public TBooleano(String text, int line, int pos)
     {
         setText(text);
         setLine(line);
@@ -22,12 +22,12 @@ public final class TModificadores extends Token
     @Override
     public Object clone()
     {
-      return new TModificadores(getText(), getLine(), getPos());
+      return new TBooleano(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTModificadores(this);
+        ((Analysis) sw).caseTBooleano(this);
     }
 }

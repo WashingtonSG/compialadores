@@ -7,14 +7,14 @@ Helpers
  letra = (maiusculo | minusculo);
  letras = letra*;
  digitos = digito*;
- numero_real = digitos+'.'+digitos;
+ numero_real = digitos '.' digitos;
  letras_ou_digitos = letras | digitos;
  underline = '_';
  espaco = ' ';
  tudo_unicode = [0..0xffff];
  string_input = [tudo_unicode - ['''+'"']];
  comentario_blc = [tudo_unicode - '{'];
- answer = 'yes' | 'no';
+ boolean = 'yes' | 'no';
  rc = 13;
  nl = 10;
  ht	= 0x0009;
@@ -25,6 +25,7 @@ Helpers
  blank = rc | nl | ht | lf | ff | cr ;
  tipos = 'symbol' | 'number' | 'answer';
  dimensao = '[' digito ']';
+ 
  
 Tokens
  // Delimitadores
@@ -51,14 +52,16 @@ Tokens
  
  // Operacoes Logicas
  menor = '<';
+ maior = '>';
+ maior_igual = '>=';
  menor_igual = '<=';
  comparacao = '==';
- negacao = '!';
- dois_maior = '>>';
+ negacao = '!=';
  
  // Tokens de Controle
   in = 'in';
   case = 'case'; 
+  otherwise = 'otherwise';
   that = 'that';
   considering = 'considering';
   from = 'from';
@@ -79,22 +82,24 @@ Tokens
  // Comentarios
  comentario_linha = ('--'[tudo_unicode-[cr+nl]]*);
  comentario_bloco = ('{-'comentario_blc*'-}');
-
-// Identificadores
- id = letras ;
-
-// Modificadores
- modificadores = 'unalterable' | 'alterable' ;
-
-// Tipos primitivos
- symbol = 'tudo_unicode';
- number = digitos numero_real;
- answer = 'yes'|'no' ;
+ 
+ unalterable = 'unalterable';
+ alterable = 'alterable';
+ 
+ // Tipos primitivos
+ symbol = ''' (string_input) ''';
+ number = 'number';
+ answer = 'answer';
+ booleano = boolean;
  vector = 'vector';
 
 // Vetores
  vetor_symbol = '"' (string_input)* '"';
  vetores = tipos dimensao+ letras;
+ 
+// Identificadores
+ id = letras ;
+
  
 // Vazio
  vazio = (espaco | '\t' | '\n' | '\r' | blank )+;
@@ -103,5 +108,3 @@ Ignored Tokens
  comentario_bloco,
  comentario_linha,
  vazio;
-
- 

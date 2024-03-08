@@ -7,14 +7,14 @@ import cida.analysis.*;
 @SuppressWarnings("nls")
 public final class TAnswer extends Token
 {
-    public TAnswer(String text)
+    public TAnswer()
     {
-        setText(text);
+        super.setText("answer");
     }
 
-    public TAnswer(String text, int line, int pos)
+    public TAnswer(int line, int pos)
     {
-        setText(text);
+        super.setText("answer");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TAnswer extends Token
     @Override
     public Object clone()
     {
-      return new TAnswer(getText(), getLine(), getPos());
+      return new TAnswer(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTAnswer(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TAnswer text.");
     }
 }

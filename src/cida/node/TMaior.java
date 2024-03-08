@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TNegacao extends Token
+public final class TMaior extends Token
 {
-    public TNegacao()
+    public TMaior()
     {
-        super.setText("!=");
+        super.setText(">");
     }
 
-    public TNegacao(int line, int pos)
+    public TMaior(int line, int pos)
     {
-        super.setText("!=");
+        super.setText(">");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TNegacao extends Token
     @Override
     public Object clone()
     {
-      return new TNegacao(getLine(), getPos());
+      return new TMaior(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTNegacao(this);
+        ((Analysis) sw).caseTMaior(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TNegacao text.");
+        throw new RuntimeException("Cannot change TMaior text.");
     }
 }

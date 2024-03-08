@@ -7,14 +7,14 @@ import cida.analysis.*;
 @SuppressWarnings("nls")
 public final class TNumber extends Token
 {
-    public TNumber(String text)
+    public TNumber()
     {
-        setText(text);
+        super.setText("number");
     }
 
-    public TNumber(String text, int line, int pos)
+    public TNumber(int line, int pos)
     {
-        setText(text);
+        super.setText("number");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TNumber extends Token
     @Override
     public Object clone()
     {
-      return new TNumber(getText(), getLine(), getPos());
+      return new TNumber(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTNumber(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TNumber text.");
     }
 }

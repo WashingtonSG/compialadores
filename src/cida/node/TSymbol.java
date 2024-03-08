@@ -7,14 +7,14 @@ import cida.analysis.*;
 @SuppressWarnings("nls")
 public final class TSymbol extends Token
 {
-    public TSymbol()
+    public TSymbol(String text)
     {
-        super.setText("tudo_unicode");
+        setText(text);
     }
 
-    public TSymbol(int line, int pos)
+    public TSymbol(String text, int line, int pos)
     {
-        super.setText("tudo_unicode");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TSymbol extends Token
     @Override
     public Object clone()
     {
-      return new TSymbol(getLine(), getPos());
+      return new TSymbol(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTSymbol(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TSymbol text.");
     }
 }

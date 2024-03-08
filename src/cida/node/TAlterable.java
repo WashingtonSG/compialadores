@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TDoisMaior extends Token
+public final class TAlterable extends Token
 {
-    public TDoisMaior()
+    public TAlterable()
     {
-        super.setText(">>");
+        super.setText("alterable");
     }
 
-    public TDoisMaior(int line, int pos)
+    public TAlterable(int line, int pos)
     {
-        super.setText(">>");
+        super.setText("alterable");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TDoisMaior extends Token
     @Override
     public Object clone()
     {
-      return new TDoisMaior(getLine(), getPos());
+      return new TAlterable(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTDoisMaior(this);
+        ((Analysis) sw).caseTAlterable(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TDoisMaior text.");
+        throw new RuntimeException("Cannot change TAlterable text.");
     }
 }
