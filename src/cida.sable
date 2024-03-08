@@ -7,7 +7,8 @@ Helpers
  letra = (maiusculo | minusculo);
  letras = letra*;
  digitos = digito*;
- numero_real = digitos '.' digitos;
+ decimal = digito+;
+ numero_real = digitos '.' decimal;
  letras_ou_digitos = letras | digitos;
  underline = '_';
  espaco = ' ';
