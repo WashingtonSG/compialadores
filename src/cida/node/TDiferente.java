@@ -5,14 +5,14 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TNegacao extends Token
+public final class TDiferente extends Token
 {
-    public TNegacao()
+    public TDiferente()
     {
         super.setText("!=");
     }
 
-    public TNegacao(int line, int pos)
+    public TDiferente(int line, int pos)
     {
         super.setText("!=");
         setLine(line);
@@ -22,18 +22,18 @@ public final class TNegacao extends Token
     @Override
     public Object clone()
     {
-      return new TNegacao(getLine(), getPos());
+      return new TDiferente(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTNegacao(this);
+        ((Analysis) sw).caseTDiferente(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TNegacao text.");
+        throw new RuntimeException("Cannot change TDiferente text.");
     }
 }

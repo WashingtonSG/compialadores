@@ -58,7 +58,7 @@ Tokens
  maior_igual = '>=';
  menor_igual = '<=';
  comparacao = '==';
- negacao = '!=';
+ diferente = '!=';
  
  // Tokens de Controle
   in = 'in';
@@ -77,7 +77,7 @@ Tokens
   xor = 'xor';
   do = 'do';
  
- code = ('code' [tudo_unicode-[cr+nl]]*);
+ code = 'code' (string_input);
  show = 'show';
  capture = 'capture';
  
@@ -111,46 +111,90 @@ Ignored Tokens
  comentario_linha,
  vazio;
  
-Productions
- programa = {programa} code id bloco;
- 
- bloco = abre_bloco declaracao+ comando+ fecha_bloco  ;
- 
- declaracao = alterable tipo id ponto | unalterable tipo_base id atribuicao* exp* ponto ;
- 
- tipo_base = tipos ;
- 
- tipo = tipo_base | tipo_base vector colchete_esq exp colchete_dir colchete_esq exp colchete_dir+ ;
- 
- local = id | local colchete_esq exp colchete_dir ;
- 
- comando = local atribuicao exp ponto 
- 	| capture par_esq local+ virgula+ local par_dir ponto 
- 	| show par_esq exp+ virgula+ exp par_dir ponto
- 	| in case that par_esq exp par_dir do comando otherwise* comando*
- 	| as long as par_esq exp par_dir do comando
- 	| considering local from exp to exp by exp do comando
- 	| bloco ;
 
- exp = symbol
- 	| number
- 	| answer
- 	| string
- 	| local
- 	| par_esq exp par_dir
-	| menos exp
-	| exp soma exp
-	| exp menos exp
-	| exp mult exp
-	| exp div exp
-	| exp mod exp
-	| exp comparacao exp
-	| exp negacao exp
-	| exp menor_igual exp
-	| exp maior_igual exp
-	| exp menor exp
-	| exp maior exp
-	| not exp
-	| exp and exp
-	| exp or exp
-	| exp xor exp ;
+Productions
+    programa = {programa} code id bloco;
+
+    bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
+    
+    declaracao =
+        {dec_alterable} alterable tipo id ponto
+        |{dec_unalterable} unalterable tipo_base id atribuicao? exp? ponto;
+    
+        
+    tipo_base =
+        {number} number
+        |{answer} answer
+        |{symbol} symbol;
+        
+    tipo = 
+        {tipo_base} tipo_base
+        |{tipo_vector} tipo_base vector colchete_esq exp colchete_dir colchete_vector*;
+
+	colchete_vector = 
+		{expressao} colchete_esq exp colchete_dir;
+        
+    local = 
+        {id} id
+        |{dec_local} local colchete_esq exp colchete_dir;
+        
+    local_virgula =
+    	{local_virgula} local virgula;
+    	
+   	exp_virgula = 
+   		{exp_virgula} exp virgula;
+   		
+   	as_long = // evita conflitos
+   		{as_long} as long;
+   		
+   	exp_to = // evitar erro de produção
+   		{exp_to} exp to;
+   	
+    	
+	comando = 
+		{comando_local} local atribuicao exp ponto
+    	|{capture} capture par_esq local_virgula* local par_dir ponto
+    	|{show} show par_esq exp_virgula* exp par_dir ponto
+    	|{in_case_that} in case that par_esq exp par_dir do comando [otherwise]:comando
+    	|{as_long_as} as_long as par_esq exp par_dir do comando
+    	|{considering} considering local from exp_to exp by do comando
+    	|{comando_bloco} bloco;
+        
+	
+	exp = 
+		{exp_terminal} exp_terminal
+		|{exp_soma} exp soma exp_terminal
+		|{exp_subtracao} exp menos exp_terminal
+		|{exp_mult} exp mult exp_terminal
+		|{exp_div} exp div exp_terminal
+		|{exp_mod} exp mod exp_terminal
+		|{exp_compara} exp comparacao exp_terminal
+		|{exp_diferente} exp diferente exp_terminal
+		|{exp_menor_igual} exp menor_igual exp_terminal
+		|{exp_maior_igual} exp maior_igual exp_terminal
+		|{exp_menor} exp menor exp_terminal
+		|{exp_maior} exp maior exp_terminal
+		|{exp_and} exp and exp_terminal
+		|{exp_or} exp or exp_terminal
+		|{exp_xor} exp xor exp_terminal;
+
+	
+	exp_terminal = //exp terminal 
+	    {exp_symbol} symbol
+	    |{exp_number} number
+	    |{exp_answer} answer
+	    |{exp_string} vetor_symbol
+	    |{exp_local} local
+	    |{exp_not} not exp_terminal
+	    |{exp_pare} par_esq exp par_dir;
+
+    
+
+		
+	
+
+ 		
+
+ 
+ 
+ 

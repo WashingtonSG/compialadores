@@ -1,11 +1,11 @@
-code MinhaCalculadora
+code minhaCalculadora
 start
     alterable number resultado.
     alterable number opcao.
     alterable number segundoOperando.
 
-    capture("Digite o primeiro número: ", resultado).
-    capture("Digite o segundo número: ", segundoOperando).
+    capture("Digite o primeiro número ", resultado).
+    capture("Digite o segundo número ", segundoOperando).
     show("Operações disponíveis:\n");
     show("1. Adição\n");
     show("2. Subtração\n");
