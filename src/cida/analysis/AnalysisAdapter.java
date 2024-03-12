@@ -213,73 +213,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAExpTerminalExp(AExpTerminalExp node)
+    public void caseAExp1Exp(AExp1Exp node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpSomaExp(AExpSomaExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpSubtracaoExp(AExpSubtracaoExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpMultExp(AExpMultExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpDivExp(AExpDivExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpModExp(AExpModExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpComparaExp(AExpComparaExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpDiferenteExp(AExpDiferenteExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpMenorIgualExp(AExpMenorIgualExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpMaiorIgualExp(AExpMaiorIgualExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpMenorExp(AExpMenorExp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpMaiorExp(AExpMaiorExp node)
+    public void caseAExpOuExp(AExpOuExp node)
     {
         defaultCase(node);
     }
@@ -291,55 +231,139 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAExpOrExp(AExpOrExp node)
+    public void caseAExp2Exp1(AExp2Exp1 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpXorExp(AExpXorExp node)
+    public void caseAExpSomaExp1(AExpSomaExp1 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpSymbolExpTerminal(AExpSymbolExpTerminal node)
+    public void caseAExpSubExp1(AExpSubExp1 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpNumberExpTerminal(AExpNumberExpTerminal node)
+    public void caseAExp3Exp2(AExp3Exp2 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpAnswerExpTerminal(AExpAnswerExpTerminal node)
+    public void caseAExpMaiorIgualExp2(AExpMaiorIgualExp2 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpStringExpTerminal(AExpStringExpTerminal node)
+    public void caseAExpMenorIgualExp2(AExpMenorIgualExp2 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpLocalExpTerminal(AExpLocalExpTerminal node)
+    public void caseAExpMaiorExp2(AExpMaiorExp2 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpNotExpTerminal(AExpNotExpTerminal node)
+    public void caseAExpMenorExp2(AExpMenorExp2 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpPareExpTerminal(AExpPareExpTerminal node)
+    public void caseAExp4Exp3(AExp4Exp3 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpSubExp3(AExpSubExp3 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpSomaExp3(AExpSomaExp3 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExp5Exp4(AExp5Exp4 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpModExp4(AExpModExp4 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpDivExp4(AExpDivExp4 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpMultExp4(AExpMultExp4 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpSymbolExp5(AExpSymbolExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpNumberExp5(AExpNumberExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpAnswerExp5(AExpAnswerExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpStringExp5(AExpStringExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpLocalExp5(AExpLocalExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpNotExp5(AExpNotExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpNegativoExp5(AExpNegativoExp5 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpPareExp5(AExpPareExp5 node)
     {
         defaultCase(node);
     }

@@ -14,8 +14,9 @@ public final class AInCaseThatComando extends PComando
     private PExp _exp_;
     private TParDir _parDir_;
     private TDo _do_;
-    private PComando _comando_;
-    private PComando _otherwise_;
+    private PComando _comando1_;
+    private TOtherwise _otherwise_;
+    private PComando _comando2_;
 
     public AInCaseThatComando()
     {
@@ -30,8 +31,9 @@ public final class AInCaseThatComando extends PComando
         @SuppressWarnings("hiding") PExp _exp_,
         @SuppressWarnings("hiding") TParDir _parDir_,
         @SuppressWarnings("hiding") TDo _do_,
-        @SuppressWarnings("hiding") PComando _comando_,
-        @SuppressWarnings("hiding") PComando _otherwise_)
+        @SuppressWarnings("hiding") PComando _comando1_,
+        @SuppressWarnings("hiding") TOtherwise _otherwise_,
+        @SuppressWarnings("hiding") PComando _comando2_)
     {
         // Constructor
         setIn(_in_);
@@ -48,9 +50,11 @@ public final class AInCaseThatComando extends PComando
 
         setDo(_do_);
 
-        setComando(_comando_);
+        setComando1(_comando1_);
 
         setOtherwise(_otherwise_);
+
+        setComando2(_comando2_);
 
     }
 
@@ -65,8 +69,9 @@ public final class AInCaseThatComando extends PComando
             cloneNode(this._exp_),
             cloneNode(this._parDir_),
             cloneNode(this._do_),
-            cloneNode(this._comando_),
-            cloneNode(this._otherwise_));
+            cloneNode(this._comando1_),
+            cloneNode(this._otherwise_),
+            cloneNode(this._comando2_));
     }
 
     @Override
@@ -250,16 +255,16 @@ public final class AInCaseThatComando extends PComando
         this._do_ = node;
     }
 
-    public PComando getComando()
+    public PComando getComando1()
     {
-        return this._comando_;
+        return this._comando1_;
     }
 
-    public void setComando(PComando node)
+    public void setComando1(PComando node)
     {
-        if(this._comando_ != null)
+        if(this._comando1_ != null)
         {
-            this._comando_.parent(null);
+            this._comando1_.parent(null);
         }
 
         if(node != null)
@@ -272,15 +277,15 @@ public final class AInCaseThatComando extends PComando
             node.parent(this);
         }
 
-        this._comando_ = node;
+        this._comando1_ = node;
     }
 
-    public PComando getOtherwise()
+    public TOtherwise getOtherwise()
     {
         return this._otherwise_;
     }
 
-    public void setOtherwise(PComando node)
+    public void setOtherwise(TOtherwise node)
     {
         if(this._otherwise_ != null)
         {
@@ -300,6 +305,31 @@ public final class AInCaseThatComando extends PComando
         this._otherwise_ = node;
     }
 
+    public PComando getComando2()
+    {
+        return this._comando2_;
+    }
+
+    public void setComando2(PComando node)
+    {
+        if(this._comando2_ != null)
+        {
+            this._comando2_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._comando2_ = node;
+    }
+
     @Override
     public String toString()
     {
@@ -311,8 +341,9 @@ public final class AInCaseThatComando extends PComando
             + toString(this._exp_)
             + toString(this._parDir_)
             + toString(this._do_)
-            + toString(this._comando_)
-            + toString(this._otherwise_);
+            + toString(this._comando1_)
+            + toString(this._otherwise_)
+            + toString(this._comando2_);
     }
 
     @Override
@@ -361,15 +392,21 @@ public final class AInCaseThatComando extends PComando
             return;
         }
 
-        if(this._comando_ == child)
+        if(this._comando1_ == child)
         {
-            this._comando_ = null;
+            this._comando1_ = null;
             return;
         }
 
         if(this._otherwise_ == child)
         {
             this._otherwise_ = null;
+            return;
+        }
+
+        if(this._comando2_ == child)
+        {
+            this._comando2_ = null;
             return;
         }
 
@@ -422,15 +459,21 @@ public final class AInCaseThatComando extends PComando
             return;
         }
 
-        if(this._comando_ == oldChild)
+        if(this._comando1_ == oldChild)
         {
-            setComando((PComando) newChild);
+            setComando1((PComando) newChild);
             return;
         }
 
         if(this._otherwise_ == oldChild)
         {
-            setOtherwise((PComando) newChild);
+            setOtherwise((TOtherwise) newChild);
+            return;
+        }
+
+        if(this._comando2_ == oldChild)
+        {
+            setComando2((PComando) newChild);
             return;
         }
 

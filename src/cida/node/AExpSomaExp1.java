@@ -5,94 +5,44 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpAndExp extends PExp
+public final class AExpSomaExp1 extends PExp1
 {
-    private PExp _exp_;
-    private TAnd _and_;
     private PExp1 _exp1_;
+    private TDiferente _diferente_;
+    private PExp2 _exp2_;
 
-    public AExpAndExp()
+    public AExpSomaExp1()
     {
         // Constructor
     }
 
-    public AExpAndExp(
-        @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TAnd _and_,
-        @SuppressWarnings("hiding") PExp1 _exp1_)
+    public AExpSomaExp1(
+        @SuppressWarnings("hiding") PExp1 _exp1_,
+        @SuppressWarnings("hiding") TDiferente _diferente_,
+        @SuppressWarnings("hiding") PExp2 _exp2_)
     {
         // Constructor
-        setExp(_exp_);
-
-        setAnd(_and_);
-
         setExp1(_exp1_);
+
+        setDiferente(_diferente_);
+
+        setExp2(_exp2_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpAndExp(
-            cloneNode(this._exp_),
-            cloneNode(this._and_),
-            cloneNode(this._exp1_));
+        return new AExpSomaExp1(
+            cloneNode(this._exp1_),
+            cloneNode(this._diferente_),
+            cloneNode(this._exp2_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpAndExp(this);
-    }
-
-    public PExp getExp()
-    {
-        return this._exp_;
-    }
-
-    public void setExp(PExp node)
-    {
-        if(this._exp_ != null)
-        {
-            this._exp_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._exp_ = node;
-    }
-
-    public TAnd getAnd()
-    {
-        return this._and_;
-    }
-
-    public void setAnd(TAnd node)
-    {
-        if(this._and_ != null)
-        {
-            this._and_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._and_ = node;
+        ((Analysis) sw).caseAExpSomaExp1(this);
     }
 
     public PExp1 getExp1()
@@ -120,34 +70,84 @@ public final class AExpAndExp extends PExp
         this._exp1_ = node;
     }
 
+    public TDiferente getDiferente()
+    {
+        return this._diferente_;
+    }
+
+    public void setDiferente(TDiferente node)
+    {
+        if(this._diferente_ != null)
+        {
+            this._diferente_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._diferente_ = node;
+    }
+
+    public PExp2 getExp2()
+    {
+        return this._exp2_;
+    }
+
+    public void setExp2(PExp2 node)
+    {
+        if(this._exp2_ != null)
+        {
+            this._exp2_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._exp2_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._exp_)
-            + toString(this._and_)
-            + toString(this._exp1_);
+            + toString(this._exp1_)
+            + toString(this._diferente_)
+            + toString(this._exp2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
-        {
-            this._exp_ = null;
-            return;
-        }
-
-        if(this._and_ == child)
-        {
-            this._and_ = null;
-            return;
-        }
-
         if(this._exp1_ == child)
         {
             this._exp1_ = null;
+            return;
+        }
+
+        if(this._diferente_ == child)
+        {
+            this._diferente_ = null;
+            return;
+        }
+
+        if(this._exp2_ == child)
+        {
+            this._exp2_ = null;
             return;
         }
 
@@ -158,21 +158,21 @@ public final class AExpAndExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
-        {
-            setExp((PExp) newChild);
-            return;
-        }
-
-        if(this._and_ == oldChild)
-        {
-            setAnd((TAnd) newChild);
-            return;
-        }
-
         if(this._exp1_ == oldChild)
         {
             setExp1((PExp1) newChild);
+            return;
+        }
+
+        if(this._diferente_ == oldChild)
+        {
+            setDiferente((TDiferente) newChild);
+            return;
+        }
+
+        if(this._exp2_ == oldChild)
+        {
+            setExp2((PExp2) newChild);
             return;
         }
 

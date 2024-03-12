@@ -629,13 +629,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAInCaseThatComando(AInCaseThatComando node)
     {
         inAInCaseThatComando(node);
+        if(node.getComando2() != null)
+        {
+            node.getComando2().apply(this);
+        }
         if(node.getOtherwise() != null)
         {
             node.getOtherwise().apply(this);
         }
-        if(node.getComando() != null)
+        if(node.getComando1() != null)
         {
-            node.getComando().apply(this);
+            node.getComando1().apply(this);
         }
         if(node.getDo() != null)
         {
@@ -702,13 +706,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getParEsq().apply(this);
         }
-        if(node.getAs() != null)
+        if(node.getAs2() != null)
         {
-            node.getAs().apply(this);
+            node.getAs2().apply(this);
         }
-        if(node.getAsLong() != null)
+        if(node.getLong() != null)
         {
-            node.getAsLong().apply(this);
+            node.getLong().apply(this);
+        }
+        if(node.getAs1() != null)
+        {
+            node.getAs1().apply(this);
         }
         outAAsLongAsComando(node);
     }
@@ -739,13 +747,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getBy().apply(this);
         }
-        if(node.getExp() != null)
+        if(node.getExp2() != null)
         {
-            node.getExp().apply(this);
+            node.getExp2().apply(this);
         }
-        if(node.getExpTo() != null)
+        if(node.getTo() != null)
         {
-            node.getExpTo().apply(this);
+            node.getTo().apply(this);
+        }
+        if(node.getExp1() != null)
+        {
+            node.getExp1().apply(this);
         }
         if(node.getFrom() != null)
         {
@@ -783,344 +795,54 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAComandoBlocoComando(node);
     }
 
-    public void inAExpTerminalExp(AExpTerminalExp node)
+    public void inAExp1Exp(AExp1Exp node)
     {
         defaultIn(node);
     }
 
-    public void outAExpTerminalExp(AExpTerminalExp node)
+    public void outAExp1Exp(AExp1Exp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpTerminalExp(AExpTerminalExp node)
+    public void caseAExp1Exp(AExp1Exp node)
     {
-        inAExpTerminalExp(node);
-        if(node.getExpTerminal() != null)
+        inAExp1Exp(node);
+        if(node.getExp1() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp1().apply(this);
         }
-        outAExpTerminalExp(node);
+        outAExp1Exp(node);
     }
 
-    public void inAExpSomaExp(AExpSomaExp node)
+    public void inAExpOuExp(AExpOuExp node)
     {
         defaultIn(node);
     }
 
-    public void outAExpSomaExp(AExpSomaExp node)
+    public void outAExpOuExp(AExpOuExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpSomaExp(AExpSomaExp node)
+    public void caseAExpOuExp(AExpOuExp node)
     {
-        inAExpSomaExp(node);
-        if(node.getExpTerminal() != null)
+        inAExpOuExp(node);
+        if(node.getExp1() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp1().apply(this);
         }
-        if(node.getSoma() != null)
+        if(node.getOr() != null)
         {
-            node.getSoma().apply(this);
+            node.getOr().apply(this);
         }
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
         }
-        outAExpSomaExp(node);
-    }
-
-    public void inAExpSubtracaoExp(AExpSubtracaoExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpSubtracaoExp(AExpSubtracaoExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpSubtracaoExp(AExpSubtracaoExp node)
-    {
-        inAExpSubtracaoExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMenos() != null)
-        {
-            node.getMenos().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpSubtracaoExp(node);
-    }
-
-    public void inAExpMultExp(AExpMultExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpMultExp(AExpMultExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpMultExp(AExpMultExp node)
-    {
-        inAExpMultExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMult() != null)
-        {
-            node.getMult().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpMultExp(node);
-    }
-
-    public void inAExpDivExp(AExpDivExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpDivExp(AExpDivExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpDivExp(AExpDivExp node)
-    {
-        inAExpDivExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getDiv() != null)
-        {
-            node.getDiv().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpDivExp(node);
-    }
-
-    public void inAExpModExp(AExpModExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpModExp(AExpModExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpModExp(AExpModExp node)
-    {
-        inAExpModExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMod() != null)
-        {
-            node.getMod().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpModExp(node);
-    }
-
-    public void inAExpComparaExp(AExpComparaExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpComparaExp(AExpComparaExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpComparaExp(AExpComparaExp node)
-    {
-        inAExpComparaExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getComparacao() != null)
-        {
-            node.getComparacao().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpComparaExp(node);
-    }
-
-    public void inAExpDiferenteExp(AExpDiferenteExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpDiferenteExp(AExpDiferenteExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpDiferenteExp(AExpDiferenteExp node)
-    {
-        inAExpDiferenteExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getDiferente() != null)
-        {
-            node.getDiferente().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpDiferenteExp(node);
-    }
-
-    public void inAExpMenorIgualExp(AExpMenorIgualExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpMenorIgualExp(AExpMenorIgualExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpMenorIgualExp(AExpMenorIgualExp node)
-    {
-        inAExpMenorIgualExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMenorIgual() != null)
-        {
-            node.getMenorIgual().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpMenorIgualExp(node);
-    }
-
-    public void inAExpMaiorIgualExp(AExpMaiorIgualExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpMaiorIgualExp(AExpMaiorIgualExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpMaiorIgualExp(AExpMaiorIgualExp node)
-    {
-        inAExpMaiorIgualExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMaiorIgual() != null)
-        {
-            node.getMaiorIgual().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpMaiorIgualExp(node);
-    }
-
-    public void inAExpMenorExp(AExpMenorExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpMenorExp(AExpMenorExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpMenorExp(AExpMenorExp node)
-    {
-        inAExpMenorExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMenor() != null)
-        {
-            node.getMenor().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpMenorExp(node);
-    }
-
-    public void inAExpMaiorExp(AExpMaiorExp node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpMaiorExp(AExpMaiorExp node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpMaiorExp(AExpMaiorExp node)
-    {
-        inAExpMaiorExp(node);
-        if(node.getExpTerminal() != null)
-        {
-            node.getExpTerminal().apply(this);
-        }
-        if(node.getMaior() != null)
-        {
-            node.getMaior().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpMaiorExp(node);
+        outAExpOuExp(node);
     }
 
     public void inAExpAndExp(AExpAndExp node)
@@ -1137,9 +859,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAExpAndExp(AExpAndExp node)
     {
         inAExpAndExp(node);
-        if(node.getExpTerminal() != null)
+        if(node.getExp1() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp1().apply(this);
         }
         if(node.getAnd() != null)
         {
@@ -1152,220 +874,590 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAExpAndExp(node);
     }
 
-    public void inAExpOrExp(AExpOrExp node)
+    public void inAExp2Exp1(AExp2Exp1 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpOrExp(AExpOrExp node)
+    public void outAExp2Exp1(AExp2Exp1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpOrExp(AExpOrExp node)
+    public void caseAExp2Exp1(AExp2Exp1 node)
     {
-        inAExpOrExp(node);
-        if(node.getExpTerminal() != null)
+        inAExp2Exp1(node);
+        if(node.getExp2() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp2().apply(this);
         }
-        if(node.getOr() != null)
-        {
-            node.getOr().apply(this);
-        }
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAExpOrExp(node);
+        outAExp2Exp1(node);
     }
 
-    public void inAExpXorExp(AExpXorExp node)
+    public void inAExpSomaExp1(AExpSomaExp1 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpXorExp(AExpXorExp node)
+    public void outAExpSomaExp1(AExpSomaExp1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpXorExp(AExpXorExp node)
+    public void caseAExpSomaExp1(AExpSomaExp1 node)
     {
-        inAExpXorExp(node);
-        if(node.getExpTerminal() != null)
+        inAExpSomaExp1(node);
+        if(node.getExp2() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp2().apply(this);
         }
-        if(node.getXor() != null)
+        if(node.getDiferente() != null)
         {
-            node.getXor().apply(this);
+            node.getDiferente().apply(this);
         }
-        if(node.getExp() != null)
+        if(node.getExp1() != null)
         {
-            node.getExp().apply(this);
+            node.getExp1().apply(this);
         }
-        outAExpXorExp(node);
+        outAExpSomaExp1(node);
     }
 
-    public void inAExpSymbolExpTerminal(AExpSymbolExpTerminal node)
+    public void inAExpSubExp1(AExpSubExp1 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpSymbolExpTerminal(AExpSymbolExpTerminal node)
+    public void outAExpSubExp1(AExpSubExp1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpSymbolExpTerminal(AExpSymbolExpTerminal node)
+    public void caseAExpSubExp1(AExpSubExp1 node)
     {
-        inAExpSymbolExpTerminal(node);
+        inAExpSubExp1(node);
+        if(node.getExp2() != null)
+        {
+            node.getExp2().apply(this);
+        }
+        if(node.getComparacao() != null)
+        {
+            node.getComparacao().apply(this);
+        }
+        if(node.getExp1() != null)
+        {
+            node.getExp1().apply(this);
+        }
+        outAExpSubExp1(node);
+    }
+
+    public void inAExp3Exp2(AExp3Exp2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExp3Exp2(AExp3Exp2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExp3Exp2(AExp3Exp2 node)
+    {
+        inAExp3Exp2(node);
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        outAExp3Exp2(node);
+    }
+
+    public void inAExpMaiorIgualExp2(AExpMaiorIgualExp2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpMaiorIgualExp2(AExpMaiorIgualExp2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpMaiorIgualExp2(AExpMaiorIgualExp2 node)
+    {
+        inAExpMaiorIgualExp2(node);
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        if(node.getMaiorIgual() != null)
+        {
+            node.getMaiorIgual().apply(this);
+        }
+        if(node.getExp2() != null)
+        {
+            node.getExp2().apply(this);
+        }
+        outAExpMaiorIgualExp2(node);
+    }
+
+    public void inAExpMenorIgualExp2(AExpMenorIgualExp2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpMenorIgualExp2(AExpMenorIgualExp2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpMenorIgualExp2(AExpMenorIgualExp2 node)
+    {
+        inAExpMenorIgualExp2(node);
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        if(node.getMenorIgual() != null)
+        {
+            node.getMenorIgual().apply(this);
+        }
+        if(node.getExp2() != null)
+        {
+            node.getExp2().apply(this);
+        }
+        outAExpMenorIgualExp2(node);
+    }
+
+    public void inAExpMaiorExp2(AExpMaiorExp2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpMaiorExp2(AExpMaiorExp2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpMaiorExp2(AExpMaiorExp2 node)
+    {
+        inAExpMaiorExp2(node);
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        if(node.getMaior() != null)
+        {
+            node.getMaior().apply(this);
+        }
+        if(node.getExp2() != null)
+        {
+            node.getExp2().apply(this);
+        }
+        outAExpMaiorExp2(node);
+    }
+
+    public void inAExpMenorExp2(AExpMenorExp2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpMenorExp2(AExpMenorExp2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpMenorExp2(AExpMenorExp2 node)
+    {
+        inAExpMenorExp2(node);
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        if(node.getMenor() != null)
+        {
+            node.getMenor().apply(this);
+        }
+        if(node.getExp2() != null)
+        {
+            node.getExp2().apply(this);
+        }
+        outAExpMenorExp2(node);
+    }
+
+    public void inAExp4Exp3(AExp4Exp3 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExp4Exp3(AExp4Exp3 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExp4Exp3(AExp4Exp3 node)
+    {
+        inAExp4Exp3(node);
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        outAExp4Exp3(node);
+    }
+
+    public void inAExpSubExp3(AExpSubExp3 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpSubExp3(AExpSubExp3 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpSubExp3(AExpSubExp3 node)
+    {
+        inAExpSubExp3(node);
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        if(node.getMenos() != null)
+        {
+            node.getMenos().apply(this);
+        }
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        outAExpSubExp3(node);
+    }
+
+    public void inAExpSomaExp3(AExpSomaExp3 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpSomaExp3(AExpSomaExp3 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpSomaExp3(AExpSomaExp3 node)
+    {
+        inAExpSomaExp3(node);
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        if(node.getSoma() != null)
+        {
+            node.getSoma().apply(this);
+        }
+        if(node.getExp3() != null)
+        {
+            node.getExp3().apply(this);
+        }
+        outAExpSomaExp3(node);
+    }
+
+    public void inAExp5Exp4(AExp5Exp4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExp5Exp4(AExp5Exp4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExp5Exp4(AExp5Exp4 node)
+    {
+        inAExp5Exp4(node);
+        if(node.getExp5() != null)
+        {
+            node.getExp5().apply(this);
+        }
+        outAExp5Exp4(node);
+    }
+
+    public void inAExpModExp4(AExpModExp4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpModExp4(AExpModExp4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpModExp4(AExpModExp4 node)
+    {
+        inAExpModExp4(node);
+        if(node.getExp5() != null)
+        {
+            node.getExp5().apply(this);
+        }
+        if(node.getMod() != null)
+        {
+            node.getMod().apply(this);
+        }
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        outAExpModExp4(node);
+    }
+
+    public void inAExpDivExp4(AExpDivExp4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpDivExp4(AExpDivExp4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpDivExp4(AExpDivExp4 node)
+    {
+        inAExpDivExp4(node);
+        if(node.getExp5() != null)
+        {
+            node.getExp5().apply(this);
+        }
+        if(node.getDiv() != null)
+        {
+            node.getDiv().apply(this);
+        }
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        outAExpDivExp4(node);
+    }
+
+    public void inAExpMultExp4(AExpMultExp4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpMultExp4(AExpMultExp4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpMultExp4(AExpMultExp4 node)
+    {
+        inAExpMultExp4(node);
+        if(node.getExp5() != null)
+        {
+            node.getExp5().apply(this);
+        }
+        if(node.getMult() != null)
+        {
+            node.getMult().apply(this);
+        }
+        if(node.getExp4() != null)
+        {
+            node.getExp4().apply(this);
+        }
+        outAExpMultExp4(node);
+    }
+
+    public void inAExpSymbolExp5(AExpSymbolExp5 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpSymbolExp5(AExpSymbolExp5 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpSymbolExp5(AExpSymbolExp5 node)
+    {
+        inAExpSymbolExp5(node);
         if(node.getSymbol() != null)
         {
             node.getSymbol().apply(this);
         }
-        outAExpSymbolExpTerminal(node);
+        outAExpSymbolExp5(node);
     }
 
-    public void inAExpNumberExpTerminal(AExpNumberExpTerminal node)
+    public void inAExpNumberExp5(AExpNumberExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpNumberExpTerminal(AExpNumberExpTerminal node)
+    public void outAExpNumberExp5(AExpNumberExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpNumberExpTerminal(AExpNumberExpTerminal node)
+    public void caseAExpNumberExp5(AExpNumberExp5 node)
     {
-        inAExpNumberExpTerminal(node);
+        inAExpNumberExp5(node);
         if(node.getNumber() != null)
         {
             node.getNumber().apply(this);
         }
-        outAExpNumberExpTerminal(node);
+        outAExpNumberExp5(node);
     }
 
-    public void inAExpAnswerExpTerminal(AExpAnswerExpTerminal node)
+    public void inAExpAnswerExp5(AExpAnswerExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpAnswerExpTerminal(AExpAnswerExpTerminal node)
+    public void outAExpAnswerExp5(AExpAnswerExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpAnswerExpTerminal(AExpAnswerExpTerminal node)
+    public void caseAExpAnswerExp5(AExpAnswerExp5 node)
     {
-        inAExpAnswerExpTerminal(node);
+        inAExpAnswerExp5(node);
         if(node.getAnswer() != null)
         {
             node.getAnswer().apply(this);
         }
-        outAExpAnswerExpTerminal(node);
+        outAExpAnswerExp5(node);
     }
 
-    public void inAExpStringExpTerminal(AExpStringExpTerminal node)
+    public void inAExpStringExp5(AExpStringExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpStringExpTerminal(AExpStringExpTerminal node)
+    public void outAExpStringExp5(AExpStringExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpStringExpTerminal(AExpStringExpTerminal node)
+    public void caseAExpStringExp5(AExpStringExp5 node)
     {
-        inAExpStringExpTerminal(node);
+        inAExpStringExp5(node);
         if(node.getVetorSymbol() != null)
         {
             node.getVetorSymbol().apply(this);
         }
-        outAExpStringExpTerminal(node);
+        outAExpStringExp5(node);
     }
 
-    public void inAExpLocalExpTerminal(AExpLocalExpTerminal node)
+    public void inAExpLocalExp5(AExpLocalExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpLocalExpTerminal(AExpLocalExpTerminal node)
+    public void outAExpLocalExp5(AExpLocalExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpLocalExpTerminal(AExpLocalExpTerminal node)
+    public void caseAExpLocalExp5(AExpLocalExp5 node)
     {
-        inAExpLocalExpTerminal(node);
+        inAExpLocalExp5(node);
         if(node.getLocal() != null)
         {
             node.getLocal().apply(this);
         }
-        outAExpLocalExpTerminal(node);
+        outAExpLocalExp5(node);
     }
 
-    public void inAExpNotExpTerminal(AExpNotExpTerminal node)
+    public void inAExpNotExp5(AExpNotExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpNotExpTerminal(AExpNotExpTerminal node)
+    public void outAExpNotExp5(AExpNotExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpNotExpTerminal(AExpNotExpTerminal node)
+    public void caseAExpNotExp5(AExpNotExp5 node)
     {
-        inAExpNotExpTerminal(node);
-        if(node.getExpTerminal() != null)
+        inAExpNotExp5(node);
+        if(node.getExp5() != null)
         {
-            node.getExpTerminal().apply(this);
+            node.getExp5().apply(this);
         }
         if(node.getNot() != null)
         {
             node.getNot().apply(this);
         }
-        outAExpNotExpTerminal(node);
+        outAExpNotExp5(node);
     }
 
-    public void inAExpPareExpTerminal(AExpPareExpTerminal node)
+    public void inAExpNegativoExp5(AExpNegativoExp5 node)
     {
         defaultIn(node);
     }
 
-    public void outAExpPareExpTerminal(AExpPareExpTerminal node)
+    public void outAExpNegativoExp5(AExpNegativoExp5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpPareExpTerminal(AExpPareExpTerminal node)
+    public void caseAExpNegativoExp5(AExpNegativoExp5 node)
     {
-        inAExpPareExpTerminal(node);
+        inAExpNegativoExp5(node);
+        if(node.getExp5() != null)
+        {
+            node.getExp5().apply(this);
+        }
+        if(node.getMenos() != null)
+        {
+            node.getMenos().apply(this);
+        }
+        outAExpNegativoExp5(node);
+    }
+
+    public void inAExpPareExp5(AExpPareExp5 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpPareExp5(AExpPareExp5 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpPareExp5(AExpPareExp5 node)
+    {
+        inAExpPareExp5(node);
         if(node.getParDir() != null)
         {
             node.getParDir().apply(this);
         }
-        if(node.getExp() != null)
+        if(node.getExp5() != null)
         {
-            node.getExp().apply(this);
+            node.getExp5().apply(this);
         }
         if(node.getParEsq() != null)
         {
             node.getParEsq().apply(this);
         }
-        outAExpPareExpTerminal(node);
+        outAExpPareExp5(node);
     }
 }

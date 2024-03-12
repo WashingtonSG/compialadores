@@ -5,56 +5,56 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpAndExp extends PExp
+public final class AExpDivExp4 extends PExp4
 {
-    private PExp _exp_;
-    private TAnd _and_;
-    private PExp1 _exp1_;
+    private PExp4 _exp4_;
+    private TDiv _div_;
+    private PExp5 _exp5_;
 
-    public AExpAndExp()
+    public AExpDivExp4()
     {
         // Constructor
     }
 
-    public AExpAndExp(
-        @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TAnd _and_,
-        @SuppressWarnings("hiding") PExp1 _exp1_)
+    public AExpDivExp4(
+        @SuppressWarnings("hiding") PExp4 _exp4_,
+        @SuppressWarnings("hiding") TDiv _div_,
+        @SuppressWarnings("hiding") PExp5 _exp5_)
     {
         // Constructor
-        setExp(_exp_);
+        setExp4(_exp4_);
 
-        setAnd(_and_);
+        setDiv(_div_);
 
-        setExp1(_exp1_);
+        setExp5(_exp5_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpAndExp(
-            cloneNode(this._exp_),
-            cloneNode(this._and_),
-            cloneNode(this._exp1_));
+        return new AExpDivExp4(
+            cloneNode(this._exp4_),
+            cloneNode(this._div_),
+            cloneNode(this._exp5_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpAndExp(this);
+        ((Analysis) sw).caseAExpDivExp4(this);
     }
 
-    public PExp getExp()
+    public PExp4 getExp4()
     {
-        return this._exp_;
+        return this._exp4_;
     }
 
-    public void setExp(PExp node)
+    public void setExp4(PExp4 node)
     {
-        if(this._exp_ != null)
+        if(this._exp4_ != null)
         {
-            this._exp_.parent(null);
+            this._exp4_.parent(null);
         }
 
         if(node != null)
@@ -67,19 +67,19 @@ public final class AExpAndExp extends PExp
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp4_ = node;
     }
 
-    public TAnd getAnd()
+    public TDiv getDiv()
     {
-        return this._and_;
+        return this._div_;
     }
 
-    public void setAnd(TAnd node)
+    public void setDiv(TDiv node)
     {
-        if(this._and_ != null)
+        if(this._div_ != null)
         {
-            this._and_.parent(null);
+            this._div_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class AExpAndExp extends PExp
             node.parent(this);
         }
 
-        this._and_ = node;
+        this._div_ = node;
     }
 
-    public PExp1 getExp1()
+    public PExp5 getExp5()
     {
-        return this._exp1_;
+        return this._exp5_;
     }
 
-    public void setExp1(PExp1 node)
+    public void setExp5(PExp5 node)
     {
-        if(this._exp1_ != null)
+        if(this._exp5_ != null)
         {
-            this._exp1_.parent(null);
+            this._exp5_.parent(null);
         }
 
         if(node != null)
@@ -117,37 +117,37 @@ public final class AExpAndExp extends PExp
             node.parent(this);
         }
 
-        this._exp1_ = node;
+        this._exp5_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._exp_)
-            + toString(this._and_)
-            + toString(this._exp1_);
+            + toString(this._exp4_)
+            + toString(this._div_)
+            + toString(this._exp5_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
+        if(this._exp4_ == child)
         {
-            this._exp_ = null;
+            this._exp4_ = null;
             return;
         }
 
-        if(this._and_ == child)
+        if(this._div_ == child)
         {
-            this._and_ = null;
+            this._div_ = null;
             return;
         }
 
-        if(this._exp1_ == child)
+        if(this._exp5_ == child)
         {
-            this._exp1_ = null;
+            this._exp5_ = null;
             return;
         }
 
@@ -158,21 +158,21 @@ public final class AExpAndExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
+        if(this._exp4_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp4((PExp4) newChild);
             return;
         }
 
-        if(this._and_ == oldChild)
+        if(this._div_ == oldChild)
         {
-            setAnd((TAnd) newChild);
+            setDiv((TDiv) newChild);
             return;
         }
 
-        if(this._exp1_ == oldChild)
+        if(this._exp5_ == oldChild)
         {
-            setExp1((PExp1) newChild);
+            setExp5((PExp5) newChild);
             return;
         }
 

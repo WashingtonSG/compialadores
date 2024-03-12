@@ -10,8 +10,9 @@ public final class AConsideringComando extends PComando
     private TConsidering _considering_;
     private PLocal _local_;
     private TFrom _from_;
-    private PExpTo _expTo_;
-    private PExp _exp_;
+    private PExp _exp1_;
+    private TTo _to_;
+    private PExp _exp2_;
     private TBy _by_;
     private TDo _do_;
     private PComando _comando_;
@@ -25,8 +26,9 @@ public final class AConsideringComando extends PComando
         @SuppressWarnings("hiding") TConsidering _considering_,
         @SuppressWarnings("hiding") PLocal _local_,
         @SuppressWarnings("hiding") TFrom _from_,
-        @SuppressWarnings("hiding") PExpTo _expTo_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp _exp1_,
+        @SuppressWarnings("hiding") TTo _to_,
+        @SuppressWarnings("hiding") PExp _exp2_,
         @SuppressWarnings("hiding") TBy _by_,
         @SuppressWarnings("hiding") TDo _do_,
         @SuppressWarnings("hiding") PComando _comando_)
@@ -38,9 +40,11 @@ public final class AConsideringComando extends PComando
 
         setFrom(_from_);
 
-        setExpTo(_expTo_);
+        setExp1(_exp1_);
 
-        setExp(_exp_);
+        setTo(_to_);
+
+        setExp2(_exp2_);
 
         setBy(_by_);
 
@@ -57,8 +61,9 @@ public final class AConsideringComando extends PComando
             cloneNode(this._considering_),
             cloneNode(this._local_),
             cloneNode(this._from_),
-            cloneNode(this._expTo_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp1_),
+            cloneNode(this._to_),
+            cloneNode(this._exp2_),
             cloneNode(this._by_),
             cloneNode(this._do_),
             cloneNode(this._comando_));
@@ -145,16 +150,16 @@ public final class AConsideringComando extends PComando
         this._from_ = node;
     }
 
-    public PExpTo getExpTo()
+    public PExp getExp1()
     {
-        return this._expTo_;
+        return this._exp1_;
     }
 
-    public void setExpTo(PExpTo node)
+    public void setExp1(PExp node)
     {
-        if(this._expTo_ != null)
+        if(this._exp1_ != null)
         {
-            this._expTo_.parent(null);
+            this._exp1_.parent(null);
         }
 
         if(node != null)
@@ -167,19 +172,19 @@ public final class AConsideringComando extends PComando
             node.parent(this);
         }
 
-        this._expTo_ = node;
+        this._exp1_ = node;
     }
 
-    public PExp getExp()
+    public TTo getTo()
     {
-        return this._exp_;
+        return this._to_;
     }
 
-    public void setExp(PExp node)
+    public void setTo(TTo node)
     {
-        if(this._exp_ != null)
+        if(this._to_ != null)
         {
-            this._exp_.parent(null);
+            this._to_.parent(null);
         }
 
         if(node != null)
@@ -192,7 +197,32 @@ public final class AConsideringComando extends PComando
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._to_ = node;
+    }
+
+    public PExp getExp2()
+    {
+        return this._exp2_;
+    }
+
+    public void setExp2(PExp node)
+    {
+        if(this._exp2_ != null)
+        {
+            this._exp2_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._exp2_ = node;
     }
 
     public TBy getBy()
@@ -277,8 +307,9 @@ public final class AConsideringComando extends PComando
             + toString(this._considering_)
             + toString(this._local_)
             + toString(this._from_)
-            + toString(this._expTo_)
-            + toString(this._exp_)
+            + toString(this._exp1_)
+            + toString(this._to_)
+            + toString(this._exp2_)
             + toString(this._by_)
             + toString(this._do_)
             + toString(this._comando_);
@@ -306,15 +337,21 @@ public final class AConsideringComando extends PComando
             return;
         }
 
-        if(this._expTo_ == child)
+        if(this._exp1_ == child)
         {
-            this._expTo_ = null;
+            this._exp1_ = null;
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._to_ == child)
         {
-            this._exp_ = null;
+            this._to_ = null;
+            return;
+        }
+
+        if(this._exp2_ == child)
+        {
+            this._exp2_ = null;
             return;
         }
 
@@ -361,15 +398,21 @@ public final class AConsideringComando extends PComando
             return;
         }
 
-        if(this._expTo_ == oldChild)
+        if(this._exp1_ == oldChild)
         {
-            setExpTo((PExpTo) newChild);
+            setExp1((PExp) newChild);
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._to_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setTo((TTo) newChild);
+            return;
+        }
+
+        if(this._exp2_ == oldChild)
+        {
+            setExp2((PExp) newChild);
             return;
         }
 

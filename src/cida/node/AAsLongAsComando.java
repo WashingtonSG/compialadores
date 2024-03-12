@@ -7,8 +7,9 @@ import cida.analysis.*;
 @SuppressWarnings("nls")
 public final class AAsLongAsComando extends PComando
 {
-    private PAsLong _asLong_;
-    private TAs _as_;
+    private TAs _as1_;
+    private TLong _long_;
+    private TAs _as2_;
     private TParEsq _parEsq_;
     private PExp _exp_;
     private TParDir _parDir_;
@@ -21,8 +22,9 @@ public final class AAsLongAsComando extends PComando
     }
 
     public AAsLongAsComando(
-        @SuppressWarnings("hiding") PAsLong _asLong_,
-        @SuppressWarnings("hiding") TAs _as_,
+        @SuppressWarnings("hiding") TAs _as1_,
+        @SuppressWarnings("hiding") TLong _long_,
+        @SuppressWarnings("hiding") TAs _as2_,
         @SuppressWarnings("hiding") TParEsq _parEsq_,
         @SuppressWarnings("hiding") PExp _exp_,
         @SuppressWarnings("hiding") TParDir _parDir_,
@@ -30,9 +32,11 @@ public final class AAsLongAsComando extends PComando
         @SuppressWarnings("hiding") PComando _comando_)
     {
         // Constructor
-        setAsLong(_asLong_);
+        setAs1(_as1_);
 
-        setAs(_as_);
+        setLong(_long_);
+
+        setAs2(_as2_);
 
         setParEsq(_parEsq_);
 
@@ -50,8 +54,9 @@ public final class AAsLongAsComando extends PComando
     public Object clone()
     {
         return new AAsLongAsComando(
-            cloneNode(this._asLong_),
-            cloneNode(this._as_),
+            cloneNode(this._as1_),
+            cloneNode(this._long_),
+            cloneNode(this._as2_),
             cloneNode(this._parEsq_),
             cloneNode(this._exp_),
             cloneNode(this._parDir_),
@@ -65,16 +70,16 @@ public final class AAsLongAsComando extends PComando
         ((Analysis) sw).caseAAsLongAsComando(this);
     }
 
-    public PAsLong getAsLong()
+    public TAs getAs1()
     {
-        return this._asLong_;
+        return this._as1_;
     }
 
-    public void setAsLong(PAsLong node)
+    public void setAs1(TAs node)
     {
-        if(this._asLong_ != null)
+        if(this._as1_ != null)
         {
-            this._asLong_.parent(null);
+            this._as1_.parent(null);
         }
 
         if(node != null)
@@ -87,19 +92,19 @@ public final class AAsLongAsComando extends PComando
             node.parent(this);
         }
 
-        this._asLong_ = node;
+        this._as1_ = node;
     }
 
-    public TAs getAs()
+    public TLong getLong()
     {
-        return this._as_;
+        return this._long_;
     }
 
-    public void setAs(TAs node)
+    public void setLong(TLong node)
     {
-        if(this._as_ != null)
+        if(this._long_ != null)
         {
-            this._as_.parent(null);
+            this._long_.parent(null);
         }
 
         if(node != null)
@@ -112,7 +117,32 @@ public final class AAsLongAsComando extends PComando
             node.parent(this);
         }
 
-        this._as_ = node;
+        this._long_ = node;
+    }
+
+    public TAs getAs2()
+    {
+        return this._as2_;
+    }
+
+    public void setAs2(TAs node)
+    {
+        if(this._as2_ != null)
+        {
+            this._as2_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._as2_ = node;
     }
 
     public TParEsq getParEsq()
@@ -244,8 +274,9 @@ public final class AAsLongAsComando extends PComando
     public String toString()
     {
         return ""
-            + toString(this._asLong_)
-            + toString(this._as_)
+            + toString(this._as1_)
+            + toString(this._long_)
+            + toString(this._as2_)
             + toString(this._parEsq_)
             + toString(this._exp_)
             + toString(this._parDir_)
@@ -257,15 +288,21 @@ public final class AAsLongAsComando extends PComando
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._asLong_ == child)
+        if(this._as1_ == child)
         {
-            this._asLong_ = null;
+            this._as1_ = null;
             return;
         }
 
-        if(this._as_ == child)
+        if(this._long_ == child)
         {
-            this._as_ = null;
+            this._long_ = null;
+            return;
+        }
+
+        if(this._as2_ == child)
+        {
+            this._as2_ = null;
             return;
         }
 
@@ -306,15 +343,21 @@ public final class AAsLongAsComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._asLong_ == oldChild)
+        if(this._as1_ == oldChild)
         {
-            setAsLong((PAsLong) newChild);
+            setAs1((TAs) newChild);
             return;
         }
 
-        if(this._as_ == oldChild)
+        if(this._long_ == oldChild)
         {
-            setAs((TAs) newChild);
+            setLong((TLong) newChild);
+            return;
+        }
+
+        if(this._as2_ == oldChild)
+        {
+            setAs2((TAs) newChild);
             return;
         }
 

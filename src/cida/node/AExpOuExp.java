@@ -5,26 +5,26 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpAndExp extends PExp
+public final class AExpOuExp extends PExp
 {
     private PExp _exp_;
-    private TAnd _and_;
+    private TOr _or_;
     private PExp1 _exp1_;
 
-    public AExpAndExp()
+    public AExpOuExp()
     {
         // Constructor
     }
 
-    public AExpAndExp(
+    public AExpOuExp(
         @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TAnd _and_,
+        @SuppressWarnings("hiding") TOr _or_,
         @SuppressWarnings("hiding") PExp1 _exp1_)
     {
         // Constructor
         setExp(_exp_);
 
-        setAnd(_and_);
+        setOr(_or_);
 
         setExp1(_exp1_);
 
@@ -33,16 +33,16 @@ public final class AExpAndExp extends PExp
     @Override
     public Object clone()
     {
-        return new AExpAndExp(
+        return new AExpOuExp(
             cloneNode(this._exp_),
-            cloneNode(this._and_),
+            cloneNode(this._or_),
             cloneNode(this._exp1_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpAndExp(this);
+        ((Analysis) sw).caseAExpOuExp(this);
     }
 
     public PExp getExp()
@@ -70,16 +70,16 @@ public final class AExpAndExp extends PExp
         this._exp_ = node;
     }
 
-    public TAnd getAnd()
+    public TOr getOr()
     {
-        return this._and_;
+        return this._or_;
     }
 
-    public void setAnd(TAnd node)
+    public void setOr(TOr node)
     {
-        if(this._and_ != null)
+        if(this._or_ != null)
         {
-            this._and_.parent(null);
+            this._or_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AExpAndExp extends PExp
             node.parent(this);
         }
 
-        this._and_ = node;
+        this._or_ = node;
     }
 
     public PExp1 getExp1()
@@ -125,7 +125,7 @@ public final class AExpAndExp extends PExp
     {
         return ""
             + toString(this._exp_)
-            + toString(this._and_)
+            + toString(this._or_)
             + toString(this._exp1_);
     }
 
@@ -139,9 +139,9 @@ public final class AExpAndExp extends PExp
             return;
         }
 
-        if(this._and_ == child)
+        if(this._or_ == child)
         {
-            this._and_ = null;
+            this._or_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AExpAndExp extends PExp
             return;
         }
 
-        if(this._and_ == oldChild)
+        if(this._or_ == oldChild)
         {
-            setAnd((TAnd) newChild);
+            setOr((TOr) newChild);
             return;
         }
 

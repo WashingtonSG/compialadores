@@ -138,55 +138,59 @@ Productions
         {id} id
         |{dec_local} local colchete_esq exp colchete_dir;
         
-    local_virgula =
+    local_virgula = //repetições
     	{local_virgula} local virgula;
     	
-   	exp_virgula = 
+   	exp_virgula = // repetições
    		{exp_virgula} exp virgula;
-   		
-   	as_long = // evita conflitos
-   		{as_long} as long;
-   		
-   	exp_to = // evitar erro de produção
-   		{exp_to} exp to;
-   	
     	
 	comando = 
 		{comando_local} local atribuicao exp ponto
     	|{capture} capture par_esq local_virgula* local par_dir ponto
     	|{show} show par_esq exp_virgula* exp par_dir ponto
-    	|{in_case_that} in case that par_esq exp par_dir do comando [otherwise]:comando
-    	|{as_long_as} as_long as par_esq exp par_dir do comando
-    	|{considering} considering local from exp_to exp by do comando
+    	|{in_case_that} in case that par_esq exp par_dir do [comando1]:comando otherwise? [comando2]:comando
+    	|{as_long_as} [as1]:as long [as2]:as par_esq exp par_dir do comando
+    	|{considering} considering local from [exp1]:exp to [exp2]:exp by do comando
     	|{comando_bloco} bloco;
-        
+    	
+    	
+	exp =
+		{exp1} exp1
+		|{exp_ou} exp or exp1
+		|{exp_and} exp and exp1;
+		
+	exp1 = 
+		{exp2} exp2
+		|{exp_soma} exp1 diferente exp2
+		|{exp_sub} exp1 comparacao exp2;
+		
+	exp2 =
+		{exp3} exp3
+		|{exp_maior_igual} exp2 maior_igual exp3
+		|{exp_menor_igual} exp2 menor_igual exp3
+		|{exp_maior} exp2 maior exp3
+		|{exp_menor} exp2 menor exp3;
+		
+	exp3 = 
+		{exp4} exp4
+		|{exp_sub} exp3 menos exp4
+		|{exp_soma} exp3 soma exp4;
 	
-	exp = 
-		{exp_terminal} exp_terminal
-		|{exp_soma} exp soma exp_terminal
-		|{exp_subtracao} exp menos exp_terminal
-		|{exp_mult} exp mult exp_terminal
-		|{exp_div} exp div exp_terminal
-		|{exp_mod} exp mod exp_terminal
-		|{exp_compara} exp comparacao exp_terminal
-		|{exp_diferente} exp diferente exp_terminal
-		|{exp_menor_igual} exp menor_igual exp_terminal
-		|{exp_maior_igual} exp maior_igual exp_terminal
-		|{exp_menor} exp menor exp_terminal
-		|{exp_maior} exp maior exp_terminal
-		|{exp_and} exp and exp_terminal
-		|{exp_or} exp or exp_terminal
-		|{exp_xor} exp xor exp_terminal;
-
+	exp4 = 
+		{exp5} exp5
+		|{exp_mod} exp4 mod exp5
+		|{exp_div} exp4 div exp5
+		|{exp_mult} exp4 mult exp5;
 	
-	exp_terminal = //exp terminal 
+	exp5 = //exp terminal 
 	    {exp_symbol} symbol
 	    |{exp_number} number
 	    |{exp_answer} answer
 	    |{exp_string} vetor_symbol
 	    |{exp_local} local
-	    |{exp_not} not exp_terminal
-	    |{exp_pare} par_esq exp par_dir;
+	    |{exp_not} not exp5
+	    |{exp_negativo} menos exp5
+	    |{exp_pare} par_esq exp5 par_dir;
 
     
 
