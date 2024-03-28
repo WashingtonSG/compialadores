@@ -9,7 +9,7 @@ public final class ADecLocalLocal extends PLocal
 {
     private PLocal _local_;
     private TColcheteEsq _colcheteEsq_;
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TColcheteDir _colcheteDir_;
 
     public ADecLocalLocal()
@@ -20,7 +20,7 @@ public final class ADecLocalLocal extends PLocal
     public ADecLocalLocal(
         @SuppressWarnings("hiding") PLocal _local_,
         @SuppressWarnings("hiding") TColcheteEsq _colcheteEsq_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TColcheteDir _colcheteDir_)
     {
         // Constructor
@@ -28,7 +28,7 @@ public final class ADecLocalLocal extends PLocal
 
         setColcheteEsq(_colcheteEsq_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setColcheteDir(_colcheteDir_);
 
@@ -40,7 +40,7 @@ public final class ADecLocalLocal extends PLocal
         return new ADecLocalLocal(
             cloneNode(this._local_),
             cloneNode(this._colcheteEsq_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._colcheteDir_));
     }
 
@@ -100,16 +100,16 @@ public final class ADecLocalLocal extends PLocal
         this._colcheteEsq_ = node;
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -122,7 +122,7 @@ public final class ADecLocalLocal extends PLocal
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TColcheteDir getColcheteDir()
@@ -156,7 +156,7 @@ public final class ADecLocalLocal extends PLocal
         return ""
             + toString(this._local_)
             + toString(this._colcheteEsq_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._colcheteDir_);
     }
 
@@ -176,9 +176,9 @@ public final class ADecLocalLocal extends PLocal
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -207,9 +207,9 @@ public final class ADecLocalLocal extends PLocal
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 

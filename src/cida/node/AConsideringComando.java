@@ -10,9 +10,9 @@ public final class AConsideringComando extends PComando
     private TConsidering _considering_;
     private PLocal _local_;
     private TFrom _from_;
-    private PExp _exp1_;
+    private PExp0 _exp1_;
     private TTo _to_;
-    private PExp _exp2_;
+    private PExp0 _exp2_;
     private TBy _by_;
     private TDo _do_;
     private PComando _comando_;
@@ -26,9 +26,9 @@ public final class AConsideringComando extends PComando
         @SuppressWarnings("hiding") TConsidering _considering_,
         @SuppressWarnings("hiding") PLocal _local_,
         @SuppressWarnings("hiding") TFrom _from_,
-        @SuppressWarnings("hiding") PExp _exp1_,
+        @SuppressWarnings("hiding") PExp0 _exp1_,
         @SuppressWarnings("hiding") TTo _to_,
-        @SuppressWarnings("hiding") PExp _exp2_,
+        @SuppressWarnings("hiding") PExp0 _exp2_,
         @SuppressWarnings("hiding") TBy _by_,
         @SuppressWarnings("hiding") TDo _do_,
         @SuppressWarnings("hiding") PComando _comando_)
@@ -150,12 +150,12 @@ public final class AConsideringComando extends PComando
         this._from_ = node;
     }
 
-    public PExp getExp1()
+    public PExp0 getExp1()
     {
         return this._exp1_;
     }
 
-    public void setExp1(PExp node)
+    public void setExp1(PExp0 node)
     {
         if(this._exp1_ != null)
         {
@@ -200,12 +200,12 @@ public final class AConsideringComando extends PComando
         this._to_ = node;
     }
 
-    public PExp getExp2()
+    public PExp0 getExp2()
     {
         return this._exp2_;
     }
 
-    public void setExp2(PExp node)
+    public void setExp2(PExp0 node)
     {
         if(this._exp2_ != null)
         {
@@ -400,7 +400,7 @@ public final class AConsideringComando extends PComando
 
         if(this._exp1_ == oldChild)
         {
-            setExp1((PExp) newChild);
+            setExp1((PExp0) newChild);
             return;
         }
 
@@ -412,7 +412,7 @@ public final class AConsideringComando extends PComando
 
         if(this._exp2_ == oldChild)
         {
-            setExp2((PExp) newChild);
+            setExp2((PExp0) newChild);
             return;
         }
 

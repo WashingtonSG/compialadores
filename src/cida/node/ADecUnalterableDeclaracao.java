@@ -11,7 +11,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
     private PTipoBase _tipoBase_;
     private TId _id_;
     private TAtribuicao _atribuicao_;
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TPonto _ponto_;
 
     public ADecUnalterableDeclaracao()
@@ -24,7 +24,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
         @SuppressWarnings("hiding") PTipoBase _tipoBase_,
         @SuppressWarnings("hiding") TId _id_,
         @SuppressWarnings("hiding") TAtribuicao _atribuicao_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TPonto _ponto_)
     {
         // Constructor
@@ -36,7 +36,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
 
         setAtribuicao(_atribuicao_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setPonto(_ponto_);
 
@@ -50,7 +50,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
             cloneNode(this._tipoBase_),
             cloneNode(this._id_),
             cloneNode(this._atribuicao_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._ponto_));
     }
 
@@ -160,16 +160,16 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
         this._atribuicao_ = node;
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -182,7 +182,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TPonto getPonto()
@@ -218,7 +218,7 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
             + toString(this._tipoBase_)
             + toString(this._id_)
             + toString(this._atribuicao_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._ponto_);
     }
 
@@ -250,9 +250,9 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -293,9 +293,9 @@ public final class ADecUnalterableDeclaracao extends PDeclaracao
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 

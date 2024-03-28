@@ -11,7 +11,7 @@ public final class AInCaseThatComando extends PComando
     private TCase _case_;
     private TThat _that_;
     private TParEsq _parEsq_;
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TParDir _parDir_;
     private TDo _do_;
     private PComando _comando1_;
@@ -28,7 +28,7 @@ public final class AInCaseThatComando extends PComando
         @SuppressWarnings("hiding") TCase _case_,
         @SuppressWarnings("hiding") TThat _that_,
         @SuppressWarnings("hiding") TParEsq _parEsq_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TParDir _parDir_,
         @SuppressWarnings("hiding") TDo _do_,
         @SuppressWarnings("hiding") PComando _comando1_,
@@ -44,7 +44,7 @@ public final class AInCaseThatComando extends PComando
 
         setParEsq(_parEsq_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setParDir(_parDir_);
 
@@ -66,7 +66,7 @@ public final class AInCaseThatComando extends PComando
             cloneNode(this._case_),
             cloneNode(this._that_),
             cloneNode(this._parEsq_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._parDir_),
             cloneNode(this._do_),
             cloneNode(this._comando1_),
@@ -180,16 +180,16 @@ public final class AInCaseThatComando extends PComando
         this._parEsq_ = node;
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -202,7 +202,7 @@ public final class AInCaseThatComando extends PComando
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TParDir getParDir()
@@ -338,7 +338,7 @@ public final class AInCaseThatComando extends PComando
             + toString(this._case_)
             + toString(this._that_)
             + toString(this._parEsq_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._parDir_)
             + toString(this._do_)
             + toString(this._comando1_)
@@ -374,9 +374,9 @@ public final class AInCaseThatComando extends PComando
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -441,9 +441,9 @@ public final class AInCaseThatComando extends PComando
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 

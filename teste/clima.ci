@@ -4,7 +4,7 @@
 
 code clima
 start
-	alterable answer temChuva, temSol.
+	alterable answer temChuva.
 
 	show("Tem chuva? yes/no").
 	capture(temChuva).
@@ -20,6 +20,6 @@ start
 	in case that (temChuva or temSol) do 
 		show("Existe algum clima").
 	otherwise 
-		show("Voce esta em um mundo apocaliptico")
+		show("Voce esta em um mundo apocaliptico").
 
 finish

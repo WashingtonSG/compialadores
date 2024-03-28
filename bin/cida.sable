@@ -119,7 +119,7 @@ Productions
     
     declaracao =
         {dec_alterable} alterable tipo id ponto
-        |{dec_unalterable} unalterable tipo_base id atribuicao? exp? ponto;
+        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto;
     
         
     tipo_base =
@@ -129,76 +129,75 @@ Productions
         
     tipo = 
         {tipo_base} tipo_base
-        |{tipo_vector} tipo_base vector colchete_esq exp colchete_dir colchete_vector*;
+        |{tipo_vector} tipo_base vector colchete_esq exp0 colchete_dir colchete_vector*;
 
 	colchete_vector = 
-		{expressao} colchete_esq exp colchete_dir;
+		{expressao} colchete_esq exp0 colchete_dir;
         
     local = 
         {id} id
-        |{dec_local} local colchete_esq exp colchete_dir;
+        |{dec_local} local colchete_esq exp0 colchete_dir;
         
     local_virgula = //repetições
     	{local_virgula} local virgula;
     	
    	exp_virgula = // repetições
-   		{exp_virgula} exp virgula;
+   		{exp_virgula} exp0 virgula;
     	
 	comando = 
-		{comando_local} local atribuicao exp ponto
+		{comando_local} local atribuicao exp0 ponto
     	|{capture} capture par_esq local_virgula* local par_dir ponto
-    	|{show} show par_esq exp_virgula* exp par_dir ponto
-    	|{in_case_that} in case that par_esq exp par_dir do [comando1]:comando otherwise? [comando2]:comando
-    	|{as_long_as} [as1]:as long [as2]:as par_esq exp par_dir do comando
-    	|{considering} considering local from [exp1]:exp to [exp2]:exp by do comando
+    	|{show} show par_esq exp_virgula* exp0 par_dir ponto
+    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando
+    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando
+    	|{considering} considering local from [exp2]:exp0 to [exp2]:exp0 by do comando
     	|{comando_bloco} bloco;
     	
+    
+    exp0 {-> expr} =
+    	{exp1} exp1
+    	|{exp0} [left]:exp0 xor [right]:exp1 	{-> New expr.xor(left.expr, right.expr)};
     	
-	exp =
-		{exp1} exp1
-		|{exp_ou} exp or exp1
-		|{exp_and} exp and exp1;
+	exp1 {-> expr}  = //mantem a precedencia usar o expr
+		{exp2} exp2							    				{-> exp2.expr}
+		|{exp_ou} [left]:exp1 or [right]:exp2					{-> New expr.or(left.exp1, right.exp2)}
+		|{exp_and} [left]:exp1 and [right]:exp2                 {-> New expr.and(left.exp1, right.exp2)};
 		
-	exp1 = 
-		{exp2} exp2
-		|{exp_soma} exp1 diferente exp2
-		|{exp_sub} exp1 comparacao exp2;
+	exp2 {-> expr} = 
+		{exp2} exp3													{ -> exp3.expr}
+		|{exp_diferente} [left]:exp2 diferente [right]:exp3			{-> New expr.diferente(left.exp2, right.exp3)}
+		|{exp_comparacao} [left]:exp2 comparacao [right]:exp3		{-> New expr.comparacao(left.exp2, right.exp3)};
 		
-	exp2 =
-		{exp3} exp3
-		|{exp_maior_igual} exp2 maior_igual exp3
-		|{exp_menor_igual} exp2 menor_igual exp3
-		|{exp_maior} exp2 maior exp3
-		|{exp_menor} exp2 menor exp3;
+	exp3 {-> expr} =
+		{exp3} exp4												{-> exp4.expr}
+		|{exp_maior_igual} [left]:exp3 maior_igual [right]exp4	{-> New expr.maior_igual(left.exp3, right.exp4)}
+		|{exp_menor_igual} [left]:exp3 menor_igual [right]exp4	{-> New expr.menor_igual(left.exp3, right.exp4)};
+
+	exp4 {-> expr} =
+		{exp5} exp5									{-> exp5.expr}
+		|{exp_maior} [left]:exp4 maior [right]:exp5 {-> New expr.maior(left.exp4, right.exp5)}
+		|{exp_menor} [left]:exp4 menor [right]:exp5 {-> New expr.menor(left.exp4, right.exp5)};
 		
-	exp3 = 
-		{exp4} exp4
-		|{exp_sub} exp3 menos exp4
-		|{exp_soma} exp3 soma exp4;
+	exp5 {-> expr} = 
+		{exp6} exp6									{-> exp6.expr}
+		|{exp_sub} [left]:exp5 menos [right]:exp6 	{-> New expr.menos(left.exp5, right.exp6)}
+		|{exp_soma} [left]:exp5 soma [right]:exp6	{-> New expr.soma(left.exp5, right.exp6)};
 	
-	exp4 = 
-		{exp5} exp5
-		|{exp_mod} exp4 mod exp5
-		|{exp_div} exp4 div exp5
-		|{exp_mult} exp4 mult exp5;
+	exp6 {-> expr} = 
+		{exp7} exp7					  {-> exp7.expr}
+		|{exp_mod} exp6 mod exp7	  {-> New exp6.mod(left.exp6, right.exp7)}
+		|{exp_div} exp6 div exp7	  {-> New exp6.div(left.exp6, right.exp7)}   
+		|{exp_mult} exp6 mult exp7    {-> New exp6.mult(left.exp6, right.exp7)};
+
+	exp7 {-> expr} = 
+		{exp8} exp8  				  {-> exp8.expr}
+		|{exp_not} not exp7           {-> New expr.not(exp7)} 
+		|{exp_negativo} menos exp7    {-> New expr.menos(exp7)};
 	
-	exp5 = //exp terminal 
-	    {exp_symbol} symbol
+	exp8 {-> expr} = //exp0 terminal 
+	    {exp_symbol} symbol {-> exp_symbol.expr}
 	    |{exp_number} number
 	    |{exp_answer} answer
 	    |{exp_string} vetor_symbol
 	    |{exp_local} local
-	    |{exp_not} not exp5
-	    |{exp_negativo} menos exp5
-	    |{exp_pare} par_esq exp5 par_dir;
-
-    
-
-		
-	
-
- 		
-
- 
- 
- 
+	    |{exp_pare} par_esq exp8 par_dir {-> exp8.expr};

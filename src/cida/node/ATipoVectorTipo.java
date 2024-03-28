@@ -11,7 +11,7 @@ public final class ATipoVectorTipo extends PTipo
     private PTipoBase _tipoBase_;
     private TVector _vector_;
     private TColcheteEsq _colcheteEsq_;
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TColcheteDir _colcheteDir_;
     private final LinkedList<PColcheteVector> _colcheteVector_ = new LinkedList<PColcheteVector>();
 
@@ -24,7 +24,7 @@ public final class ATipoVectorTipo extends PTipo
         @SuppressWarnings("hiding") PTipoBase _tipoBase_,
         @SuppressWarnings("hiding") TVector _vector_,
         @SuppressWarnings("hiding") TColcheteEsq _colcheteEsq_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TColcheteDir _colcheteDir_,
         @SuppressWarnings("hiding") List<?> _colcheteVector_)
     {
@@ -35,7 +35,7 @@ public final class ATipoVectorTipo extends PTipo
 
         setColcheteEsq(_colcheteEsq_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setColcheteDir(_colcheteDir_);
 
@@ -50,7 +50,7 @@ public final class ATipoVectorTipo extends PTipo
             cloneNode(this._tipoBase_),
             cloneNode(this._vector_),
             cloneNode(this._colcheteEsq_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._colcheteDir_),
             cloneList(this._colcheteVector_));
     }
@@ -136,16 +136,16 @@ public final class ATipoVectorTipo extends PTipo
         this._colcheteEsq_ = node;
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -158,7 +158,7 @@ public final class ATipoVectorTipo extends PTipo
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TColcheteDir getColcheteDir()
@@ -219,7 +219,7 @@ public final class ATipoVectorTipo extends PTipo
             + toString(this._tipoBase_)
             + toString(this._vector_)
             + toString(this._colcheteEsq_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._colcheteDir_)
             + toString(this._colcheteVector_);
     }
@@ -246,9 +246,9 @@ public final class ATipoVectorTipo extends PTipo
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -288,9 +288,9 @@ public final class ATipoVectorTipo extends PTipo
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 

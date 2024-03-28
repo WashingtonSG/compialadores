@@ -159,18 +159,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAAsLongAsLong(AAsLongAsLong node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAExpToExpTo(AExpToExpTo node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAComandoLocalComando(AComandoLocalComando node)
     {
         defaultCase(node);
@@ -213,6 +201,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAExpExp0(AExpExp0 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExp0Exp0(AExp0Exp0 node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAExp1Exp(AExp1Exp node)
     {
         defaultCase(node);
@@ -237,13 +237,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAExpSomaExp1(AExpSomaExp1 node)
+    public void caseAExpDiferenteExp1(AExpDiferenteExp1 node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpSubExp1(AExpSubExp1 node)
+    public void caseAExpComparacaoExp1(AExpComparacaoExp1 node)
     {
         defaultCase(node);
     }

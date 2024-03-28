@@ -26,8 +26,6 @@ public interface Analysis extends Switch
     void caseADecLocalLocal(ADecLocalLocal node);
     void caseALocalVirgulaLocalVirgula(ALocalVirgulaLocalVirgula node);
     void caseAExpVirgulaExpVirgula(AExpVirgulaExpVirgula node);
-    void caseAAsLongAsLong(AAsLongAsLong node);
-    void caseAExpToExpTo(AExpToExpTo node);
     void caseAComandoLocalComando(AComandoLocalComando node);
     void caseACaptureComando(ACaptureComando node);
     void caseAShowComando(AShowComando node);
@@ -35,12 +33,14 @@ public interface Analysis extends Switch
     void caseAAsLongAsComando(AAsLongAsComando node);
     void caseAConsideringComando(AConsideringComando node);
     void caseAComandoBlocoComando(AComandoBlocoComando node);
+    void caseAExpExp0(AExpExp0 node);
+    void caseAExp0Exp0(AExp0Exp0 node);
     void caseAExp1Exp(AExp1Exp node);
     void caseAExpOuExp(AExpOuExp node);
     void caseAExpAndExp(AExpAndExp node);
     void caseAExp2Exp1(AExp2Exp1 node);
-    void caseAExpSomaExp1(AExpSomaExp1 node);
-    void caseAExpSubExp1(AExpSubExp1 node);
+    void caseAExpDiferenteExp1(AExpDiferenteExp1 node);
+    void caseAExpComparacaoExp1(AExpComparacaoExp1 node);
     void caseAExp3Exp2(AExp3Exp2 node);
     void caseAExpMaiorIgualExp2(AExpMaiorIgualExp2 node);
     void caseAExpMenorIgualExp2(AExpMenorIgualExp2 node);

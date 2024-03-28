@@ -11,7 +11,7 @@ public final class AShowComando extends PComando
     private TShow _show_;
     private TParEsq _parEsq_;
     private final LinkedList<PExpVirgula> _expVirgula_ = new LinkedList<PExpVirgula>();
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TParDir _parDir_;
     private TPonto _ponto_;
 
@@ -24,7 +24,7 @@ public final class AShowComando extends PComando
         @SuppressWarnings("hiding") TShow _show_,
         @SuppressWarnings("hiding") TParEsq _parEsq_,
         @SuppressWarnings("hiding") List<?> _expVirgula_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TParDir _parDir_,
         @SuppressWarnings("hiding") TPonto _ponto_)
     {
@@ -35,7 +35,7 @@ public final class AShowComando extends PComando
 
         setExpVirgula(_expVirgula_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setParDir(_parDir_);
 
@@ -50,7 +50,7 @@ public final class AShowComando extends PComando
             cloneNode(this._show_),
             cloneNode(this._parEsq_),
             cloneList(this._expVirgula_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._parDir_),
             cloneNode(this._ponto_));
     }
@@ -137,16 +137,16 @@ public final class AShowComando extends PComando
         }
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -159,7 +159,7 @@ public final class AShowComando extends PComando
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TParDir getParDir()
@@ -219,7 +219,7 @@ public final class AShowComando extends PComando
             + toString(this._show_)
             + toString(this._parEsq_)
             + toString(this._expVirgula_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._parDir_)
             + toString(this._ponto_);
     }
@@ -245,9 +245,9 @@ public final class AShowComando extends PComando
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -300,9 +300,9 @@ public final class AShowComando extends PComando
             }
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 

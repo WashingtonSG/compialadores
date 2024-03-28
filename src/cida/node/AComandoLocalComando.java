@@ -9,7 +9,7 @@ public final class AComandoLocalComando extends PComando
 {
     private PLocal _local_;
     private TAtribuicao _atribuicao_;
-    private PExp _exp_;
+    private PExp0 _exp0_;
     private TPonto _ponto_;
 
     public AComandoLocalComando()
@@ -20,7 +20,7 @@ public final class AComandoLocalComando extends PComando
     public AComandoLocalComando(
         @SuppressWarnings("hiding") PLocal _local_,
         @SuppressWarnings("hiding") TAtribuicao _atribuicao_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExp0 _exp0_,
         @SuppressWarnings("hiding") TPonto _ponto_)
     {
         // Constructor
@@ -28,7 +28,7 @@ public final class AComandoLocalComando extends PComando
 
         setAtribuicao(_atribuicao_);
 
-        setExp(_exp_);
+        setExp0(_exp0_);
 
         setPonto(_ponto_);
 
@@ -40,7 +40,7 @@ public final class AComandoLocalComando extends PComando
         return new AComandoLocalComando(
             cloneNode(this._local_),
             cloneNode(this._atribuicao_),
-            cloneNode(this._exp_),
+            cloneNode(this._exp0_),
             cloneNode(this._ponto_));
     }
 
@@ -100,16 +100,16 @@ public final class AComandoLocalComando extends PComando
         this._atribuicao_ = node;
     }
 
-    public PExp getExp()
+    public PExp0 getExp0()
     {
-        return this._exp_;
+        return this._exp0_;
     }
 
-    public void setExp(PExp node)
+    public void setExp0(PExp0 node)
     {
-        if(this._exp_ != null)
+        if(this._exp0_ != null)
         {
-            this._exp_.parent(null);
+            this._exp0_.parent(null);
         }
 
         if(node != null)
@@ -122,7 +122,7 @@ public final class AComandoLocalComando extends PComando
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._exp0_ = node;
     }
 
     public TPonto getPonto()
@@ -156,7 +156,7 @@ public final class AComandoLocalComando extends PComando
         return ""
             + toString(this._local_)
             + toString(this._atribuicao_)
-            + toString(this._exp_)
+            + toString(this._exp0_)
             + toString(this._ponto_);
     }
 
@@ -176,9 +176,9 @@ public final class AComandoLocalComando extends PComando
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._exp0_ == child)
         {
-            this._exp_ = null;
+            this._exp0_ = null;
             return;
         }
 
@@ -207,9 +207,9 @@ public final class AComandoLocalComando extends PComando
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._exp0_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExp0((PExp0) newChild);
             return;
         }
 
