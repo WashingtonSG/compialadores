@@ -117,9 +117,9 @@ Productions
 
     bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
     
-    declaracao {-> expr} =
-        {dec_alterable} alterable tipo id ponto								{-> New expr.id(id)}						 
-        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto	{-> New expr.dec_unalterable(id, atribuicao, exp0.expr)};
+    declaracao =
+        {dec_alterable} alterable tipo id ponto													 
+        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto;
     
         
     tipo_base =
@@ -144,14 +144,14 @@ Productions
    	exp_virgula {-> expr} = // repetições
    		{exp_virgula} exp0 virgula;
     	
-	comando {-> expr} = 
-		{comando_local} local atribuicao exp0 ponto  {-> New expr.atribuicao(exp0.expr)}
-    	|{capture} capture par_esq local_virgula* local par_dir ponto {-> expr.capture}
-    	|{show} show par_esq exp_virgula* exp0 par_dir ponto    {-> expr.show}
-    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando {-> New expr.in_case_that(exp0)}
-    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando {-> New expr.as_long_as(exp0)}
-    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando {-> New expr.considering(exp1.expr, exp2.expr)}
-    	|{comando_bloco} bloco {-> comando_bloco.expr};
+	comando {-> comando} = 
+		{comando_local} local atribuicao exp0 ponto  {-> New comando.atribuicao(exp0.comando)}
+    	|{capture} capture par_esq local_virgula* local par_dir ponto {-> comando.capture}
+    	|{show} show par_esq exp_virgula* exp0 par_dir ponto    {-> comando.show}
+    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando {-> New comando.in_case_that(exp0.comando)}
+    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando {-> New comando.as_long_as(exp0.comando)}
+    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando {-> New comando.considering(exp1.comando, exp2.comando)}
+    	|{comando_bloco} bloco {-> comando_bloco.comando};
     	
     
     exp0 {-> expr} =
@@ -211,7 +211,7 @@ Abstract Syntax Tree
     
     declaracao =
         {dec_alterable} alterable tipo id ponto 
-        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto;
+        |{dec_unalterable} unalterable tipo_base id expr;
         
     tipo_base =
         {number} number
@@ -220,28 +220,28 @@ Abstract Syntax Tree
         
     tipo = 
         {tipo_base} tipo_base
-        |{tipo_vector} tipo_base vector colchete_esq exp0 colchete_dir colchete_vector*;
+        |{tipo_vector} tipo_base vector colchete_esq expr colchete_dir colchete_vector*;
 
 	colchete_vector = 
-		{expressao} colchete_esq exp0 colchete_dir;
+		{expressao} colchete_esq expr colchete_dir;
         
     local  = 
         {id} id												
-        |{dec_local} local colchete_esq exp0 colchete_dir;
+        |{dec_local} local colchete_esq expr colchete_dir;
         
     local_virgula = //repetições
     	{local_virgula} local virgula;
     	
    	exp_virgula = // repetições
-   		{exp_virgula} exp0 virgula;
+   		{exp_virgula} expr virgula;
     	
 	comando = 
-		{comando_local} local atribuicao exp0 ponto
-    	|{capture} capture par_esq local_virgula* local par_dir ponto
-    	|{show} show par_esq exp_virgula* exp0 par_dir ponto
-    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando
-    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando
-    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando
+		{comando_local} local expr 
+    	|{capture} capture  
+    	|{show} show  
+    	|{in_case_that} expr
+    	|{as_long_as} expr
+    	|{considering} [left]:expr [right]:expr
     	|{comando_bloco} bloco;
 	
 	expr = 
