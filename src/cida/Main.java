@@ -10,16 +10,16 @@ public class Main
 		try
 		{
 			String arquivo = "teste/sucesso/17_para.ci";
-
-			Lexer lexer =
+			
+	
+			Parser p =
+					new Parser(
 					new Lexer(
 							new PushbackReader(  
-									new FileReader(arquivo), 1024)); 
-			Token token;
-			while(!((token = lexer.next()) instanceof EOF)) {
-				System.out.println(token.getClass());
-				System.out.println(" ( "+token.toString()+")");
-			}
+									new FileReader(arquivo), 1024))); 
+			
+			Start tree = p.parse();
+			tree.apply(new ASTDisplay());
 		}
 		catch(Exception e)
 		{
