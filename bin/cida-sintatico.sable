@@ -155,117 +155,49 @@ Productions
     	
     
     exp0 {-> expr} =
-    	{exp1} exp1				{-> exp1.expr}
-    	|{xor} exp0 xor exp1	{-> New expr.xor(exp0.expr, exp1.expr)};
+    	{exp1} exp1				
+    	|{xor} exp0 xor exp1	
     	
 	exp1 {-> expr} = //mantem a precedencia usar o expr
-		{exp2} exp2					{-> exp2.expr}							 	
-		|{or} exp1 or exp2			{-> New expr.or(exp1.expr, exp2.expr)}					
-		|{and} exp1 and exp2		{-> New expr.and(exp1.expr, exp2.expr)};
+		{exp2} exp2										 	
+		|{or} exp1 or exp2							
+		|{and} exp1 and exp2		
 		
 	exp2  {-> expr} = 
-		{exp2} exp3								{-> exp3.expr}
-		|{diferente} exp2 diferente exp3		{-> New expr.diferente(exp2.expr, exp3.expr)}		
-		|{comparacao} exp2 comparacao exp3		{-> New expr.comparacao(exp2.expr, exp3.expr)};
+		{exp2} exp3								
+		|{diferente} exp2 diferente exp3			
+		|{comparacao} exp2 comparacao exp3		
 		
 	exp3 {-> expr} =
-		{exp3} exp4								{-> exp4.expr}				
-		|{maior_igual} exp3 maior_igual exp4	{-> New expr.maior_igual(exp3.expr, exp4.expr)}
-		|{menor_igual} exp3 menor_igual exp4	{-> New expr.menor_igual(exp3.expr, exp4.expr)};
+		{exp3} exp4												
+		|{maior_igual} exp3 maior_igual exp4	
+		|{menor_igual} exp3 menor_igual exp4	
 
 	exp4 {-> expr} =
-		{exp5} exp5					{-> exp5.expr}				
-		|{maior} exp4 maior exp5 	{-> New expr.maior(exp4.expr, exp5.expr)}
-		|{menor} exp4 menor exp5	{-> New expr.menor(exp4.expr, exp5.expr)};
+		{exp5} exp5								
+		|{maior} exp4 maior exp5 	
+		|{menor} exp4 menor exp5	
 		
 	exp5 {-> expr} = 
-		{exp6} exp6				{-> exp6.expr}					
-		|{sub} exp5 menos exp6	{-> New expr.sub(exp5.expr, exp6.expr)} 
-		|{soma} exp5 soma exp6	{-> New expr.soma(exp5.expr, exp6.expr)};
+		{exp6} exp6									
+		|{sub} exp5 menos exp6	 
+		|{soma} exp5 soma exp6	
 	
 	exp6  {-> expr} = 
-		{exp7} exp7				{-> exp7.expr}	  				
-		|{mod} exp6 mod exp7	{-> New expr.mod(exp6.expr, exp7.expr)}  	
-		|{div} exp6 div exp7	{-> New expr.div(exp6.expr, exp7.expr)} 	
-		|{mult} exp6 mult exp7	{-> New expr.mult(exp6.expr, exp7.expr)};
+		{exp7} exp7					  				
+		|{mod} exp6 mod exp7	 	
+		|{div} exp6 div exp7		
+		|{mult} exp6 mult exp7	
 
 	exp7  {-> expr} = 
-		{exp8} exp8  		{-> exp8.expr}	
-		|{not} not exp7		{-> New expr.not(exp7.expr)}	
-		|{menos} menos exp7	{-> New expr.menos(exp7.expr)};
+		{exp8} exp8  		
+		|{not} not exp7			
+		|{menos} menos exp7	
 	
 	exp8 {-> expr} = //exp0 terminal 
-	    {symbol} symbol 				{-> New expr.symbol(symbol)}
-	    |{number} number 				{-> New expr.number(number)}
-	    |{answer} answer 				{-> New expr.answer(answer)}
-	    |{vetor_symbol} vetor_symbol 	{-> New expr.vetor_symbol(vetor_symbol)}
-	    |{local} local				 	{-> New expr.local(local)}
-	    |{paren} par_esq exp8 par_dir	{-> exp8.expr};
-
-    
-Abstract Syntax Tree
-
-	programa = {programa} code id bloco;
-
-    bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
-    
-    declaracao =
-        {dec_alterable} alterable tipo id ponto 
-        |{dec_unalterable} unalterable tipo_base id expr;
-        
-    tipo_base =
-        {number} number
-        |{answer} answer
-        |{symbol} symbol;
-        
-    tipo = 
-        {tipo_base} tipo_base
-        |{tipo_vector} tipo_base vector colchete_esq expr colchete_dir colchete_vector*;
-
-	colchete_vector = 
-		{expressao} colchete_esq expr colchete_dir;
-        
-    local  = 
-        {id} id												
-        |{dec_local} local colchete_esq expr colchete_dir;
-        
-    local_virgula = //repetições
-    	{local_virgula} local virgula;
-    	
-   	exp_virgula = // repetições
-   		{exp_virgula} expr virgula;
-    	
-	comando = 
-		{comando_local} local expr 
-    	|{capture} capture  
-    	|{show} show  
-    	|{in_case_that} expr
-    	|{as_long_as} expr
-    	|{considering} [left]:expr [right]:expr
-    	|{comando_bloco} bloco;
-	
-	expr = 
-		{xor} [left]:expr [right]:expr
-		|{or} [left]:expr [right]:expr
-		|{and} [left]:expr [right]:expr
-		|{diferente} [left]:expr [right]:expr
-		|{comparacao} [left]:expr [right]:expr
-		|{maior_igual} [left]:expr [right]:expr
-		|{menor_igual} [left]:expr [right]:expr
-		|{maior} [left]:expr [right]:expr
-		|{menor} [left]:expr [right]:expr
-		|{sub} [left]:expr [right]:expr
-		|{soma} [left]:expr [right]:expr
-		|{mod} [left]:expr [right]:expr
-		|{div} [left]:expr [right]:expr
-		|{mult} [left]:expr [right]:expr
-		|{not} expr
-		|{menos} expr
-		|{symbol} symbol
-		|{number} number
-		|{answer} answer
-		|{vetor_symbol} vetor_symbol
-		|{local} local
-		|{id} id
-		|{dec_local} local 
-		|{dec_unalterable} id atribuicao expr;
+	    {symbol} symbol 				
+	    |{number} number 				
+	    |{answer} answer 				
+	    |{vetor_symbol} vetor_symbol 	
+	    |{local} local				 	
+	    |{paren} par_esq exp8 par_dir	
