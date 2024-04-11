@@ -1,0 +1,11 @@
+code programa 
+start
+   alterable number i.
+   alterable answer resposta.
+   alterable symbol caractere.
+   unalterable number I << 42.
+   unalterable answer RESPOSTA << YES.
+   unalterable symbol CARACTERE << 'A'.
+finish
+
+

@@ -1,0 +1,10 @@
+code programa 
+start
+   alterable number i.
+   alterable answer b.   
+   
+   b << ((i < 3) or (2 < i)).
+   b << i < 3 or 2 < i.
+   b << ((i <= 3) or (2 + 1 < i)).
+finish
+

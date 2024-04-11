@@ -6,7 +6,7 @@ Helpers
  maiusculo = ['A' .. 'Z'];
  letra = (maiusculo | minusculo);
  letras = letra*;
- digitos = digito*;
+ digitos = digito+;
  decimal = digito+;
  numero_real = digitos '.' decimal;
  letras_ou_digitos = letras | digitos;
@@ -14,6 +14,7 @@ Helpers
  espaco = ' ';
  tudo_unicode = [0..0xffff];
  string_input = [tudo_unicode - ['''+'"']];
+ numero_input = digitos | numero_real;
  comentario_blc = [tudo_unicode - '{'];
  boolean = 'yes' | 'no';
  rc = 13;
@@ -44,7 +45,6 @@ Tokens
  
  
   // Operacoes Matematicas e Logicas
- numeros = digitos | numero_real;
  soma = '+';
  menos = '-';
  mult = '*';
@@ -88,19 +88,21 @@ Tokens
  unalterable = 'unalterable';
  alterable = 'alterable';
  
+
  // Tipos primitivos
- symbol = ''' (string_input) ''';
- number = 'number';
- answer = 'answer';
- booleano = boolean;
+ symbol = 'symbol' |''' (letra) ''';
+ number = 'number' | numero_input;
+ answer = 'answer' | boolean;
  vector = 'vector';
 
 // Vetores
- vetor_symbol = '"' (string_input)* '"';
+ vetor_symbol = '"' (string_input)+ '"';
+
+
  vetores = tipos dimensao+ letras;
  
 // Identificadores
- id = letras ;
+ id = letras;
 
  
 // Vazio
@@ -113,159 +115,184 @@ Ignored Tokens
  
 
 Productions
-    programa = {programa} code id bloco;
+    programa {-> a_programa } = 
+    	{programa} code id bloco {-> New a_programa.a_programa(id, bloco.a_bloco)};
 
-    bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
+    bloco {-> a_bloco} = 
+    	{bloco} abre_bloco declaracao* comando* fecha_bloco {-> New a_bloco.bloco([declaracao.a_declaracao], [comando.a_comando])};
     
-    declaracao {-> expr} =
-        {dec_alterable} alterable tipo id ponto								{-> New expr.id(id)}						 
-        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto	{-> New expr.dec_unalterable(id, atribuicao, exp0.expr)};
+    declaracao  {-> a_declaracao } =
+        {dec_alterable} alterable tipo id ponto 							{-> New a_declaracao.dec_alterable(tipo.a_tipo, id)}
+        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto	{-> New a_declaracao.dec_unalterable(tipo_base.a_tipo_base, id, exp0.expr)};
     
         
-    tipo_base =
-        {number} number
-        |{answer} answer
-        |{symbol} symbol;
+    tipo_base {-> a_tipo_base } =
+        {number} number		{-> New a_tipo_base.number(number)}
+        |{answer} answer	{-> New a_tipo_base.answer(answer)}
+        |{symbol} symbol	{-> New a_tipo_base.symbol(symbol)};
         
-    tipo = 
-        {tipo_base} tipo_base
-        |{tipo_vector} tipo_base vector colchete_esq exp0 colchete_dir colchete_vector*;
+        
+    tipo  {-> a_tipo } = 
+        {tipo_base} tipo_base 														{-> New a_tipo.tipo_base(tipo_base.a_tipo_base)}
+        |{tipo_vector} tipo vector colchete_esq exp0 colchete_dir colchete_vector* 	{-> New a_tipo.tipo_vector(tipo.a_tipo, exp0.expr, [colchete_vector.a_colchete_vector])};
+        
+        
+	colchete_vector {-> a_colchete_vector} = 
+		{expressao} colchete_esq exp0 colchete_dir {-> New a_colchete_vector.expressao(colchete_esq, exp0.expr, colchete_dir)};
+        
+    local {-> a_local } = 
+        {id} id													{-> New a_local.id(id)}					
+        |{dec_local} local colchete_esq exp0 colchete_dir		{-> New a_local.dec_local(local.a_local, exp0.expr)};
+        
+    local_virgula {-> a_local_virgula } = //repetições
+    	{local_virgula} local virgula {-> New a_local_virgula.local_virgula(local.a_local, virgula)};
+    	
+   	exp_virgula {-> a_exp_virgula} = // repetições
+   		{exp_virgula} exp0 virgula  {-> New a_exp_virgula.exp_virgula(exp0.expr, virgula)}; 
+    	
+   	comando_simples {-> a_comando_simples} = 
+   		{in_case_that_simples} in case that par_esq exp0 par_dir do comando 															{-> New a_comando_simples.in_case_that_simples(exp0.expr, comando.a_comando)}
+   		|{in_case_that_otherwise} in case that par_esq exp0 par_dir do [comando1]:comando_composto otherwise [comando2]:comando_simples {-> New a_comando_simples.in_case_that_otherwise(exp0.expr, comando1.a_comando_composto, comando2.a_comando_simples)};
+   		
+   	comando_composto {-> a_comando_composto} = //usando otherwise 
+   		{in_case_composto} in case that par_esq exp0 par_dir do [comando1]:comando_composto otherwise [comando2]:comando_composto 	{-> New a_comando_composto.in_case_composto(exp0.expr, comando1.a_comando_composto, comando2.a_comando_composto)}
+   		|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by [exp3]:exp0 do comando_composto							{-> New a_comando_composto.considering(local.a_local, exp1.expr, exp2.expr, exp3.expr, comando_composto.a_comando_composto)}
+   		|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando_composto												{-> New a_comando_composto.as_long_as(exp0.expr, comando_composto.a_comando_composto)}
+   		|{capture} capture par_esq local_virgula* local par_dir ponto 																{-> New a_comando_composto.capture([local_virgula.a_local_virgula], local.a_local)}
+    	|{show} show par_esq exp_virgula* exp0 par_dir ponto																		{-> New a_comando_composto.show([exp_virgula.a_exp_virgula], exp0.expr)}
+    	|{comando_local} local atribuicao exp0 ponto 																				{-> New a_comando_composto.comando_local(local.a_local, exp0.expr)}
+    	|{comando_bloco} bloco							 																			{-> New a_comando_composto.comando_bloco(bloco.a_bloco)};
+   		
 
-	colchete_vector {-> expr} = 
-		{expressao} colchete_esq exp0 colchete_dir;
-        
-    local {-> expr } = 
-        {id} id												{-> New expr.id(id)}			
-        |{dec_local} local colchete_esq exp0 colchete_dir	{-> New expr.dec_local(local, exp0.expr)};
-        
-    local_virgula = //repetições
-    	{local_virgula} local virgula;
-    	
-   	exp_virgula {-> expr} = // repetições
-   		{exp_virgula} exp0 virgula;
-    	
-	comando {-> expr} = 
-		{comando_local} local atribuicao exp0 ponto  {-> New expr.atribuicao(exp0.expr)}
-    	|{capture} capture par_esq local_virgula* local par_dir ponto {-> expr.capture}
-    	|{show} show par_esq exp_virgula* exp0 par_dir ponto    {-> expr.show}
-    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando {-> New expr.in_case_that(exp0)}
-    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando {-> New expr.as_long_as(exp0)}
-    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando {-> New expr.considering(exp1.expr, exp2.expr)}
-    	|{comando_bloco} bloco {-> comando_bloco.expr};
-    	
+	comando {-> a_comando} = 																										
+    		{comando_simples} comando_simples 		{-> New a_comando.comando_simples(comando_simples.a_comando_simples)}
+    		|{comando_otherwise} comando_composto	{-> New a_comando.comando_otherwise(comando_composto.a_comando_composto)};																		
     
     exp0 {-> expr} =
-    	{exp1} exp1				{-> exp1.expr}
-    	|{xor} exp0 xor exp1	{-> New expr.xor(exp0.expr, exp1.expr)};
+    	 {exp1} exp1								{-> exp1.expr}					
+    	 |{xor} [left]:exp0 xor [right]:exp1     	{-> New expr.xor(left.expr, right.expr)};
     	
-	exp1 {-> expr} = //mantem a precedencia usar o expr
-		{exp2} exp2					{-> exp2.expr}							 	
-		|{or} exp1 or exp2			{-> New expr.or(exp1.expr, exp2.expr)}					
-		|{and} exp1 and exp2		{-> New expr.and(exp1.expr, exp2.expr)};
+	exp1 {-> expr} = 
+		{exp2} exp2								{-> exp2.expr}											 	
+		|{or} [left]:exp1 or   [right]:exp2		{-> New expr.or(left.expr, right.expr)}							
+		|{and} [left]:exp1 and [right]:exp2   	{-> New expr.and(left.expr, right.expr)};
 		
-	exp2  {-> expr} = 
-		{exp2} exp3								{-> exp3.expr}
-		|{diferente} exp2 diferente exp3		{-> New expr.diferente(exp2.expr, exp3.expr)}		
-		|{comparacao} exp2 comparacao exp3		{-> New expr.comparacao(exp2.expr, exp3.expr)};
+	exp2 {-> expr} = 
+		{exp2} exp3											{-> exp3.expr}				
+		|{diferente} [left]:exp2 diferente [right]:exp3		{-> New expr.diferente(left.expr, right.expr)}				
+		|{comparacao} [left]:exp2 comparacao [right]:exp3 	{-> New expr.comparacao(left.expr, right.expr)};
 		
 	exp3 {-> expr} =
-		{exp3} exp4								{-> exp4.expr}				
-		|{maior_igual} exp3 maior_igual exp4	{-> New expr.maior_igual(exp3.expr, exp4.expr)}
-		|{menor_igual} exp3 menor_igual exp4	{-> New expr.menor_igual(exp3.expr, exp4.expr)};
+		{exp3} exp4											{-> exp4.expr}											
+		|{maior_igual} [left]:exp3 maior_igual [right]:exp4 {-> New expr.maior_igual(left.expr, right.expr)}	
+		|{menor_igual} [left]:exp3 menor_igual [right]:exp4 {-> New expr.menor_igual(left.expr, right.expr)};
 
 	exp4 {-> expr} =
-		{exp5} exp5					{-> exp5.expr}				
-		|{maior} exp4 maior exp5 	{-> New expr.maior(exp4.expr, exp5.expr)}
-		|{menor} exp4 menor exp5	{-> New expr.menor(exp4.expr, exp5.expr)};
+		{exp5} exp5									{-> exp5.expr}			
+		|{maior} [left]:exp4 maior [right]:exp5		{-> New expr.maior(left.expr, right.expr)} 	
+		|{menor} [left]:exp4 menor [right]:exp5    	{-> New expr.menor(left.expr, right.expr)};
 		
 	exp5 {-> expr} = 
-		{exp6} exp6				{-> exp6.expr}					
-		|{sub} exp5 menos exp6	{-> New expr.sub(exp5.expr, exp6.expr)} 
-		|{soma} exp5 soma exp6	{-> New expr.soma(exp5.expr, exp6.expr)};
+		{exp6} exp6									{-> exp6.expr}							
+		|{sub} [left]:exp5 menos [right]:exp6		{-> New expr.sub(left.expr, right.expr)}
+		|{soma} [left]:exp5 soma [right]:exp6		{-> New expr.soma(left.expr, right.expr)};
 	
-	exp6  {-> expr} = 
-		{exp7} exp7				{-> exp7.expr}	  				
-		|{mod} exp6 mod exp7	{-> New expr.mod(exp6.expr, exp7.expr)}  	
-		|{div} exp6 div exp7	{-> New expr.div(exp6.expr, exp7.expr)} 	
-		|{mult} exp6 mult exp7	{-> New expr.mult(exp6.expr, exp7.expr)};
+	exp6 {-> expr} = 
+		{exp7} exp7									{-> exp7.expr}			 				
+		|{mod} [left]:exp6 mod [right]:exp7			{-> New expr.mod(left.expr, right.expr)}	
+		|{div} [left]:exp6 div [right]:exp7			{-> New expr.div(left.expr, right.expr)}
+		|{mult} [left]:exp6 mult [right]:exp7		{-> New expr.mult(left.expr, right.expr)};
 
-	exp7  {-> expr} = 
-		{exp8} exp8  		{-> exp8.expr}	
-		|{not} not exp7		{-> New expr.not(exp7.expr)}	
-		|{menos} menos exp7	{-> New expr.menos(exp7.expr)};
+	exp7 {-> expr} = 
+		{exp8} exp8							{-> exp8.expr} 
+		|{not} not [right]:exp7				{-> New expr.not(right.expr)} 
+		|{menos} menos [right]:exp7			{-> New expr.menos(right.expr)};
 	
 	exp8 {-> expr} = //exp0 terminal 
-	    {symbol} symbol 				{-> New expr.symbol(symbol)}
-	    |{number} number 				{-> New expr.number(number)}
-	    |{answer} answer 				{-> New expr.answer(answer)}
-	    |{vetor_symbol} vetor_symbol 	{-> New expr.vetor_symbol(vetor_symbol)}
-	    |{local} local				 	{-> New expr.local(local)}
-	    |{paren} par_esq exp8 par_dir	{-> exp8.expr};
+		{number} number 				{-> New expr.number(number)}
+	    |{symbol} symbol				{-> New expr.symbol(symbol)} 			
+	    |{answer} answer 				{-> New expr.answer(answer)}		
+	    |{vetor_symbol} vetor_symbol	{-> New expr.vetor_symbol(vetor_symbol)} 	
+	    |{local} local					{-> New expr.local(local.a_local)}			 
+	    |{paren} par_esq exp0 par_dir 	{-> New expr.paren(exp0.expr)};
 
-    
+
 Abstract Syntax Tree
 
-	programa = {programa} code id bloco;
+    a_programa = 
+        {a_programa} id a_bloco;
 
-    bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
+   	a_bloco = 
+    	{bloco} a_declaracao* a_comando*;
     
-    declaracao =
-        {dec_alterable} alterable tipo id ponto 
-        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto;
-        
-    tipo_base =
+    a_declaracao =
+        {dec_alterable} a_tipo id
+        |{dec_unalterable} a_tipo_base id expr?;
+
+    a_tipo_base =
         {number} number
         |{answer} answer
         |{symbol} symbol;
         
-    tipo = 
-        {tipo_base} tipo_base
-        |{tipo_vector} tipo_base vector colchete_esq exp0 colchete_dir colchete_vector*;
+    a_tipo = 
+        {tipo_base} a_tipo_base
+        |{tipo_vector} a_tipo expr a_colchete_vector*;
 
-	colchete_vector = 
-		{expressao} colchete_esq exp0 colchete_dir;
+    a_colchete_vector = 
+        {expressao} colchete_esq expr colchete_dir;
         
-    local  = 
-        {id} id												
-        |{dec_local} local colchete_esq exp0 colchete_dir;
+    a_local = 
+        {id} id
+        |{dec_local} a_local expr;
         
-    local_virgula = //repetições
-    	{local_virgula} local virgula;
-    	
-   	exp_virgula = // repetições
-   		{exp_virgula} exp0 virgula;
-    	
-	comando = 
-		{comando_local} local atribuicao exp0 ponto
-    	|{capture} capture par_esq local_virgula* local par_dir ponto
-    	|{show} show par_esq exp_virgula* exp0 par_dir ponto
-    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando
-    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando
-    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando
-    	|{comando_bloco} bloco;
-	
-	expr = 
-		{xor} [left]:expr [right]:expr
-		|{or} [left]:expr [right]:expr
-		|{and} [left]:expr [right]:expr
-		|{diferente} [left]:expr [right]:expr
-		|{comparacao} [left]:expr [right]:expr
-		|{maior_igual} [left]:expr [right]:expr
-		|{menor_igual} [left]:expr [right]:expr
-		|{maior} [left]:expr [right]:expr
-		|{menor} [left]:expr [right]:expr
-		|{sub} [left]:expr [right]:expr
-		|{soma} [left]:expr [right]:expr
-		|{mod} [left]:expr [right]:expr
-		|{div} [left]:expr [right]:expr
-		|{mult} [left]:expr [right]:expr
-		|{not} expr
-		|{menos} expr
-		|{symbol} symbol
-		|{number} number
-		|{answer} answer
-		|{vetor_symbol} vetor_symbol
-		|{local} local
-		|{id} id
-		|{dec_local} local 
-		|{dec_unalterable} id atribuicao expr;
+    a_local_virgula = //repetições
+        {local_virgula} a_local virgula;
+        
+    a_exp_virgula = // repetições
+        {exp_virgula} expr virgula;
+        
+   	a_comando_simples = 
+   		{in_case_that_simples} expr a_comando 
+   		|{in_case_that_otherwise} expr a_comando_composto a_comando_simples
+   		|{comando_bloco_simples} a_bloco;
+
+   		 	
+   		
+   a_comando_composto = 
+   		{in_case_composto} expr [comando1]:a_comando_composto [comando2]:a_comando_composto 	
+   		|{considering} a_local [exp1]:expr [exp2]:expr [exp3]:expr a_comando_composto						
+   		|{as_long_as} expr a_comando_composto											
+   		|{capture} a_local_virgula* a_local															
+    	|{show} a_exp_virgula* expr																
+    	|{comando_local} a_local expr 																			
+    	|{comando_bloco} a_bloco;																			
+        
+    a_comando = 																										
+    		{comando_simples} a_comando_simples
+    		|{comando_otherwise} a_comando_composto;	
+        
+        
+    
+    expr =                   
+        |{xor} [left]:expr [right]:expr                                           
+        |{or} [left]:expr [right]:expr                            
+        |{and} [left]:expr [right]:expr            
+        |{diferente} [left]:expr [right]:expr                
+        |{comparacao} [left]:expr [right]:expr               
+        |{maior_igual} [left]:expr [right]:expr    
+        |{menor_igual} [left]:expr [right]:expr        
+        |{maior} [left]:expr [right]:expr    
+        |{menor} [left]:expr [right]:expr                  
+        |{sub} [left]:expr [right]:expr
+        |{soma} [left]:expr [right]:expr                       
+        |{mod} [left]:expr [right]:expr
+        |{div} [left]:expr [right]:expr  
+        |{mult} [left]:expr [right]:expr
+        |{not} [right]:expr        
+        |{menos} [right]:expr
+        |{number} number  
+        |{symbol} symbol       
+        |{answer} answer                
+        |{vetor_symbol} vetor_symbol     
+        |{local} a_local                 
+        |{paren} expr;

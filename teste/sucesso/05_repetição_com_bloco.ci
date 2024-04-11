@@ -1,0 +1,14 @@
+code programa 
+start
+
+   alterable number i.
+   
+   i << 0.
+   as long as (i < 10) do 
+   start
+      i<< i+1.
+      show (i).
+   finish
+   
+finish
+

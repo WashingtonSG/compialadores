@@ -1,0 +1,11 @@
+code programa 
+start
+   alterable answer vector [3] vetor.
+    
+   vetor[0] << yes.
+   vetor[1] << no.
+   vetor[1+1] << yes. 
+finish
+
+
+

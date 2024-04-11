@@ -1,0 +1,18 @@
+code programa 
+start
+
+   alterable number i.
+   alterable number j.
+   alterable number k.
+
+   capture (i).
+   show (i).
+      
+   capture (i, j).
+   show (i, j).
+   
+   capture (i, j, k).
+   show (i, j, k).
+
+finish
+

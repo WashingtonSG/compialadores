@@ -1,0 +1,8 @@
+code programa 
+start
+
+   alterable number i.
+   
+   i<< i+1.
+   
+finish

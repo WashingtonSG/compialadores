@@ -1,0 +1,12 @@
+code programa 
+start
+   alterable answer b.   
+   alterable number n.   
+
+   b << no.
+   b << not(yes).
+   b << not b.
+   n << -1.
+   n << -(1+2).
+finish
+

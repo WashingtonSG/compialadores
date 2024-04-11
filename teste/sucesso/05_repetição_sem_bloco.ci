@@ -1,0 +1,11 @@
+code programa 
+start
+
+   alterable number i.
+   
+   i << 3.
+   
+   as long as (i > 0) do 
+      i << i-1.
+   
+finish

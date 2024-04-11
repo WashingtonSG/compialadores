@@ -1,0 +1,5 @@
+code programa 
+start
+   alterable symbol vector [512] palavra.
+   palavra << "abcdefghijklmnopq".
+finish

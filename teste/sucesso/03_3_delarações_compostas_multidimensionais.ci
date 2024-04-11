@@ -1,0 +1,8 @@
+code programa 
+start
+   alterable number vector [3] numeros.
+   alterable number vector [3][3] matriz.
+   alterable number vector [3][3][3] cubo.
+finish
+
+

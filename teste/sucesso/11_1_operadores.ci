@@ -1,0 +1,19 @@
+       
+code programa 
+start
+   alterable number i.
+   alterable answer b.
+    
+	i << 9.
+	i << i + 1/2. 
+	i << 2 - 1/2.
+	i << 4 * 2.
+		
+	b << 1 == 2. 	
+	b << 1 < 2. 
+	b << 10 <= 2.
+	b << 10 > 2.
+	b << 10 >= 20.	
+finish
+
+

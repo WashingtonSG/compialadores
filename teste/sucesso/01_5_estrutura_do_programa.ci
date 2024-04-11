@@ -1,0 +1,5 @@
+code ppp 
+start
+   alterable number i.
+   i << 0.
+finish

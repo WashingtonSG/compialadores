@@ -1,0 +1,16 @@
+code programa 
+start
+
+   alterable number i.
+
+   show (i+100).
+   show (5+8).
+   show (5<8).
+   show (5+8, 8).
+   show (5+8, 8, i).
+   show ('a', 'e', 'i').
+   show ("oi").
+   show (yes or no).
+   
+finish
+

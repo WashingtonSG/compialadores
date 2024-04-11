@@ -1,0 +1,6 @@
+code programa 
+start
+   alterable number vector [3] numeros.
+   alterable symbol vector [512] palavra.
+   alterable answer vector [3] respostas.
+finish

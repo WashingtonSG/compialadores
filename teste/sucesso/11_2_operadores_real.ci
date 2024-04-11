@@ -1,0 +1,11 @@
+       
+code programa 
+start
+   alterable number i.
+    
+	i << 9.6.
+	i << 2.3 - 1/2.
+
+finish
+
+

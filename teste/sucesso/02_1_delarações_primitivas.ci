@@ -1,0 +1,10 @@
+code programa 
+start
+   alterable number i.
+   alterable answer resposta.
+   alterable symbol caractere.
+   unalterable number I.
+   unalterable answer RESPOSTA.
+   unalterable symbol CARACTERE.
+finish
+

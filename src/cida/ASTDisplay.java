@@ -9,12 +9,9 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.tree.*;
-import calculadora.analysis.*;
-import calculadora.node.*;
+import cida.node.*;
 import cida.analysis.DepthFirstAdapter;
-import cida.node.EOF;
-import cida.node.Node;
-import cida.node.Start;
+
 
 public class ASTDisplay extends DepthFirstAdapter
 {

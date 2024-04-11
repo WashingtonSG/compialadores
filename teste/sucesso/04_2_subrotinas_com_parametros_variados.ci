@@ -1,0 +1,13 @@
+code programa 
+start
+
+   alterable number i.
+
+   show (i).
+   show (5).
+   show ('a').
+   show ("oi").
+   show (yes).
+   
+finish
+

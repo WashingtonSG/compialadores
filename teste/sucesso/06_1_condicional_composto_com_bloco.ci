@@ -1,0 +1,16 @@
+code programa 
+start
+
+   alterable number i.
+   
+   capture (i).
+   in case that (i<10) do
+   start
+      i<< i+1.
+   finish
+   otherwise
+   start
+      i<< i-1.
+   finish     
+    
+finish

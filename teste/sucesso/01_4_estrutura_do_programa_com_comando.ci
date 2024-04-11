@@ -1,0 +1,6 @@
+code teste
+start
+   show(42).
+finish
+
+
