@@ -1,0 +1,203 @@
+Package cida;
+
+Helpers
+ digito = ['0' .. '9'];
+ minusculo = ['a' .. 'z'];
+ maiusculo = ['A' .. 'Z'];
+ letra = (maiusculo | minusculo);
+ letras = letra*;
+ digitos = digito*;
+ decimal = digito+;
+ numero_real = digitos '.' decimal;
+ letras_ou_digitos = letras | digitos;
+ underline = '_';
+ espaco = ' ';
+ tudo_unicode = [0..0xffff];
+ string_input = [tudo_unicode - ['''+'"']];
+ comentario_blc = [tudo_unicode - '{'];
+ boolean = 'yes' | 'no';
+ rc = 13;
+ nl = 10;
+ ht	= 0x0009;
+ lf	= 0x000a;
+ ff	= 0x000c;
+ cr	= 0x000d;
+ eol = cr | nl | cr | nl ;
+ blank = rc | nl | ht | lf | ff | cr ;
+ tipos = 'symbol' | 'number' | 'answer';
+ dimensao = '[' digito ']';
+ 
+ 
+Tokens
+ // Delimitadores
+ abre_bloco = 'start';
+ fecha_bloco = 'finish';
+ par_esq = '(';
+ par_dir = ')';
+ dois_pontos = ':';
+ virgula = ',';
+ ponto_virgula = ';';
+ ponto = '.';
+ aspas = '"';
+ colchete_esq = '[';
+ colchete_dir = ']';
+ 
+ 
+  // Operacoes Matematicas e Logicas
+ numeros = digitos | numero_real;
+ soma = '+';
+ menos = '-';
+ mult = '*';
+ div = '/';
+ mod = '%';
+ atribuicao = '<<';
+ 
+ // Operacoes Logicas
+ menor = '<';
+ maior = '>';
+ maior_igual = '>=';
+ menor_igual = '<=';
+ comparacao = '==';
+ diferente = '!=';
+ 
+ // Tokens de Controle
+  in = 'in';
+  case = 'case'; 
+  otherwise = 'otherwise';
+  that = 'that';
+  considering = 'considering';
+  from = 'from';
+  to = 'to';
+  by = 'by';
+  as = 'as';
+  long = 'long';
+  and = 'and';
+  or = 'or';
+  not = 'not';
+  xor = 'xor';
+  do = 'do';
+ 
+ code = 'code' (string_input);
+ show = 'show';
+ capture = 'capture';
+ 
+ // Comentarios
+ comentario_linha = ('--'[tudo_unicode-[cr+nl]]*);
+ comentario_bloco = ('{-'comentario_blc*'-}');
+ 
+ unalterable = 'unalterable';
+ alterable = 'alterable';
+ 
+ // Tipos primitivos
+ symbol = ''' (string_input) ''';
+ number = 'number';
+ answer = 'answer';
+ booleano = boolean;
+ vector = 'vector';
+
+// Vetores
+ vetor_symbol = '"' (string_input)* '"';
+ vetores = tipos dimensao+ letras;
+ 
+// Identificadores
+ id = letras ;
+
+ 
+// Vazio
+ vazio = (espaco | '\t' | '\n' | '\r' | blank )+;
+ 
+Ignored Tokens
+ comentario_bloco,
+ comentario_linha,
+ vazio;
+ 
+
+Productions
+    programa = {programa} code id bloco;
+
+    bloco = {bloco} abre_bloco declaracao* comando* fecha_bloco;
+    
+    declaracao =
+        {dec_alterable} alterable tipo id ponto													 
+        |{dec_unalterable} unalterable tipo_base id atribuicao? exp0? ponto;
+    
+        
+    tipo_base =
+        {number} number
+        |{answer} answer
+        |{symbol} symbol;
+        
+    tipo = 
+        {tipo_base} tipo_base
+        |{tipo_vector} tipo_base vector colchete_esq exp0 colchete_dir colchete_vector*;
+
+	colchete_vector {-> expr} = 
+		{expressao} colchete_esq exp0 colchete_dir;
+        
+    local {-> expr } = 
+        {id} id												{-> New expr.id(id)}			
+        |{dec_local} local colchete_esq exp0 colchete_dir	{-> New expr.dec_local(local, exp0.expr)};
+        
+    local_virgula = //repetições
+    	{local_virgula} local virgula;
+    	
+   	exp_virgula {-> expr} = // repetições
+   		{exp_virgula} exp0 virgula;
+    	
+	comando {-> comando} = 
+		{comando_local} local atribuicao exp0 ponto  {-> New comando.atribuicao(exp0.comando)}
+    	|{capture} capture par_esq local_virgula* local par_dir ponto {-> comando.capture}
+    	|{show} show par_esq exp_virgula* exp0 par_dir ponto    {-> comando.show}
+    	|{in_case_that} in case that par_esq exp0 par_dir do [comando1]:comando otherwise? [comando2]:comando {-> New comando.in_case_that(exp0.comando)}
+    	|{as_long_as} [as1]:as long [as2]:as par_esq exp0 par_dir do comando {-> New comando.as_long_as(exp0.comando)}
+    	|{considering} considering local from [exp1]:exp0 to [exp2]:exp0 by do comando {-> New comando.considering(exp1.comando, exp2.comando)}
+    	|{comando_bloco} bloco {-> comando_bloco.comando};
+    	
+    
+    exp0 {-> expr} =
+    	{exp1} exp1				
+    	|{xor} exp0 xor exp1	
+    	
+	exp1 {-> expr} = //mantem a precedencia usar o expr
+		{exp2} exp2										 	
+		|{or} exp1 or exp2							
+		|{and} exp1 and exp2		
+		
+	exp2  {-> expr} = 
+		{exp2} exp3								
+		|{diferente} exp2 diferente exp3			
+		|{comparacao} exp2 comparacao exp3		
+		
+	exp3 {-> expr} =
+		{exp3} exp4												
+		|{maior_igual} exp3 maior_igual exp4	
+		|{menor_igual} exp3 menor_igual exp4	
+
+	exp4 {-> expr} =
+		{exp5} exp5								
+		|{maior} exp4 maior exp5 	
+		|{menor} exp4 menor exp5	
+		
+	exp5 {-> expr} = 
+		{exp6} exp6									
+		|{sub} exp5 menos exp6	 
+		|{soma} exp5 soma exp6	
+	
+	exp6  {-> expr} = 
+		{exp7} exp7					  				
+		|{mod} exp6 mod exp7	 	
+		|{div} exp6 div exp7		
+		|{mult} exp6 mult exp7	
+
+	exp7  {-> expr} = 
+		{exp8} exp8  		
+		|{not} not exp7			
+		|{menos} menos exp7	
+	
+	exp8 {-> expr} = //exp0 terminal 
+	    {symbol} symbol 				
+	    |{number} number 				
+	    |{answer} answer 				
+	    |{vetor_symbol} vetor_symbol 	
+	    |{local} local				 	
+	    |{paren} par_esq exp8 par_dir	
