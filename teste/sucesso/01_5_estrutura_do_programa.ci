@@ -1,4 +1,4 @@
-code ppp 
+code programa 
 start
    alterable number i.
    i << 0.

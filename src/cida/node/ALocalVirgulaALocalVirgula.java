@@ -8,7 +8,6 @@ import cida.analysis.*;
 public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
 {
     private PALocal _aLocal_;
-    private TVirgula _virgula_;
 
     public ALocalVirgulaALocalVirgula()
     {
@@ -16,13 +15,10 @@ public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
     }
 
     public ALocalVirgulaALocalVirgula(
-        @SuppressWarnings("hiding") PALocal _aLocal_,
-        @SuppressWarnings("hiding") TVirgula _virgula_)
+        @SuppressWarnings("hiding") PALocal _aLocal_)
     {
         // Constructor
         setALocal(_aLocal_);
-
-        setVirgula(_virgula_);
 
     }
 
@@ -30,8 +26,7 @@ public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
     public Object clone()
     {
         return new ALocalVirgulaALocalVirgula(
-            cloneNode(this._aLocal_),
-            cloneNode(this._virgula_));
+            cloneNode(this._aLocal_));
     }
 
     @Override
@@ -65,37 +60,11 @@ public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
         this._aLocal_ = node;
     }
 
-    public TVirgula getVirgula()
-    {
-        return this._virgula_;
-    }
-
-    public void setVirgula(TVirgula node)
-    {
-        if(this._virgula_ != null)
-        {
-            this._virgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._virgula_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._aLocal_)
-            + toString(this._virgula_);
+            + toString(this._aLocal_);
     }
 
     @Override
@@ -105,12 +74,6 @@ public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
         if(this._aLocal_ == child)
         {
             this._aLocal_ = null;
-            return;
-        }
-
-        if(this._virgula_ == child)
-        {
-            this._virgula_ = null;
             return;
         }
 
@@ -124,12 +87,6 @@ public final class ALocalVirgulaALocalVirgula extends PALocalVirgula
         if(this._aLocal_ == oldChild)
         {
             setALocal((PALocal) newChild);
-            return;
-        }
-
-        if(this._virgula_ == oldChild)
-        {
-            setVirgula((TVirgula) newChild);
             return;
         }
 

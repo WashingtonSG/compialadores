@@ -1026,16 +1026,16 @@ public class Parser
         PATipo patipoNode1;
         {
             // Block
-        PATipo patipoNode2;
+        PATipoBase patipobaseNode2;
         PExpr pexprNode3;
         LinkedList<Object> listNode4 = new LinkedList<Object>();
-        patipoNode2 = (PATipo)nodeArrayList1.get(0);
+        patipobaseNode2 = (PATipoBase)nodeArrayList1.get(0);
         pexprNode3 = (PExpr)nodeArrayList4.get(0);
         {
             // Block
         }
 
-        patipoNode1 = new ATipoVectorATipo(patipoNode2, pexprNode3, listNode4);
+        patipoNode1 = new ATipoVectorATipo(patipobaseNode2, pexprNode3, listNode4);
         }
 	nodeList.add(patipoNode1);
         return nodeList;
@@ -1057,10 +1057,10 @@ public class Parser
         PATipo patipoNode1;
         {
             // Block
-        PATipo patipoNode2;
+        PATipoBase patipobaseNode2;
         PExpr pexprNode3;
         LinkedList<Object> listNode5 = new LinkedList<Object>();
-        patipoNode2 = (PATipo)nodeArrayList1.get(0);
+        patipobaseNode2 = (PATipoBase)nodeArrayList1.get(0);
         pexprNode3 = (PExpr)nodeArrayList4.get(0);
         {
             // Block
@@ -1072,7 +1072,7 @@ public class Parser
 	}
         }
 
-        patipoNode1 = new ATipoVectorATipo(patipoNode2, pexprNode3, listNode5);
+        patipoNode1 = new ATipoVectorATipo(patipobaseNode2, pexprNode3, listNode5);
         }
 	nodeList.add(patipoNode1);
         return nodeList;
@@ -1091,14 +1091,10 @@ public class Parser
         PAColcheteVector pacolchetevectorNode1;
         {
             // Block
-        TColcheteEsq tcolcheteesqNode2;
-        PExpr pexprNode3;
-        TColcheteDir tcolchetedirNode4;
-        tcolcheteesqNode2 = (TColcheteEsq)nodeArrayList1.get(0);
-        pexprNode3 = (PExpr)nodeArrayList2.get(0);
-        tcolchetedirNode4 = (TColcheteDir)nodeArrayList3.get(0);
+        PExpr pexprNode2;
+        pexprNode2 = (PExpr)nodeArrayList2.get(0);
 
-        pacolchetevectorNode1 = new AExpressaoAColcheteVector(tcolcheteesqNode2, pexprNode3, tcolchetedirNode4);
+        pacolchetevectorNode1 = new AExpressaoAColcheteVector(pexprNode2);
         }
 	nodeList.add(pacolchetevectorNode1);
         return nodeList;
@@ -1162,11 +1158,9 @@ public class Parser
         {
             // Block
         PALocal palocalNode2;
-        TVirgula tvirgulaNode3;
         palocalNode2 = (PALocal)nodeArrayList1.get(0);
-        tvirgulaNode3 = (TVirgula)nodeArrayList2.get(0);
 
-        palocalvirgulaNode1 = new ALocalVirgulaALocalVirgula(palocalNode2, tvirgulaNode3);
+        palocalvirgulaNode1 = new ALocalVirgulaALocalVirgula(palocalNode2);
         }
 	nodeList.add(palocalvirgulaNode1);
         return nodeList;
@@ -1185,11 +1179,9 @@ public class Parser
         {
             // Block
         PExpr pexprNode2;
-        TVirgula tvirgulaNode3;
         pexprNode2 = (PExpr)nodeArrayList1.get(0);
-        tvirgulaNode3 = (TVirgula)nodeArrayList2.get(0);
 
-        paexpvirgulaNode1 = new AExpVirgulaAExpVirgula(pexprNode2, tvirgulaNode3);
+        paexpvirgulaNode1 = new AExpVirgulaAExpVirgula(pexprNode2);
         }
 	nodeList.add(paexpvirgulaNode1);
         return nodeList;
@@ -2470,8 +2462,8 @@ public class Parser
 			{{-1, REDUCE, 10}, },
 			{{-1, REDUCE, 11}, },
 			{{-1, ERROR, 31}, {49, SHIFT, 66}, },
-			{{-1, REDUCE, 13}, },
-			{{-1, ERROR, 33}, {46, SHIFT, 67}, {49, SHIFT, 68}, },
+			{{-1, REDUCE, 13}, {46, SHIFT, 67}, },
+			{{-1, ERROR, 33}, {49, SHIFT, 68}, },
 			{{-1, ERROR, 34}, {2, SHIFT, 44}, {12, SHIFT, 45}, {35, SHIFT, 46}, {43, SHIFT, 47}, {44, SHIFT, 48}, {45, SHIFT, 49}, {47, SHIFT, 50}, {49, SHIFT, 14}, },
 			{{-1, ERROR, 35}, {2, SHIFT, 44}, {12, SHIFT, 45}, {35, SHIFT, 46}, {43, SHIFT, 47}, {44, SHIFT, 48}, {45, SHIFT, 49}, {47, SHIFT, 50}, {49, SHIFT, 14}, },
 			{{-1, REDUCE, 2}, },
@@ -2675,14 +2667,14 @@ public class Parser
 			"expecting: '(', '.', '-', 'not', symbol, number, answer, vetor symbol, id",
 			"expecting: 'do'",
 			"expecting: 'by', 'xor'",
-			"expecting: '[', 'vector', id",
+			"expecting: '[', id",
 			"expecting: 'start', 'in', 'considering', 'as', 'show', 'capture', id",
 			"expecting: 'xor', 'do'",
 			"expecting: 'otherwise'",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 4, 2, 5, 6, 1, 7, 8, 8, 9, 9, 10, 11, 4, 12, 13, 13, 13, 4, 13, 14, 15, 16, 17, 1, 18, 18, 18, 1, 18, 18, 17, 17, 5, 4, 13, 5, 13, 8, 17, 8, 17, 17, 17, 19, 19, 19, 19, 20, 17, 21, 22, 23, 24, 25, 26, 19, 19, 19, 17, 27, 1, 1, 28, 29, 30, 31, 32, 5, 17, 33, 17, 34, 19, 19, 30, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 21, 30, 1, 27, 1, 4, 35, 32, 17, 4, 10, 11, 34, 17, 34, 19, 11, 22, 23, 23, 24, 24, 25, 25, 26, 26, 19, 19, 19, 19, 19, 30, 11, 30, 4, 32, 4, 31, 36, 37, 36, 11, 11, 4, 38, 39, 17, 39, 17, 38, 38, 11, 13, 40, 6, 11, 31, 38, 39, 39, 14, 38, 13, 11, 11, 8, 17, 34, 36, 39, 41, 39, 
+			0, 1, 2, 3, 4, 2, 5, 6, 1, 7, 8, 8, 9, 9, 10, 11, 4, 12, 13, 13, 13, 4, 13, 14, 15, 16, 17, 1, 18, 18, 18, 1, 18, 1, 17, 17, 5, 4, 13, 5, 13, 8, 17, 8, 17, 17, 17, 19, 19, 19, 19, 20, 17, 21, 22, 23, 24, 25, 26, 19, 19, 19, 17, 27, 1, 1, 28, 29, 30, 31, 32, 5, 17, 33, 17, 34, 19, 19, 30, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 21, 30, 1, 27, 1, 4, 35, 32, 17, 4, 10, 11, 34, 17, 34, 19, 11, 22, 23, 23, 24, 24, 25, 25, 26, 26, 19, 19, 19, 19, 19, 30, 11, 30, 4, 32, 4, 31, 36, 37, 36, 11, 11, 4, 38, 39, 17, 39, 17, 38, 38, 11, 13, 40, 6, 11, 31, 38, 39, 39, 14, 38, 13, 11, 11, 8, 17, 34, 36, 39, 41, 39, 
         };*/
 
     static 

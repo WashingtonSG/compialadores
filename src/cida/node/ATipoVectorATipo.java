@@ -8,7 +8,7 @@ import cida.analysis.*;
 @SuppressWarnings("nls")
 public final class ATipoVectorATipo extends PATipo
 {
-    private PATipo _aTipo_;
+    private PATipoBase _aTipoBase_;
     private PExpr _expr_;
     private final LinkedList<PAColcheteVector> _aColcheteVector_ = new LinkedList<PAColcheteVector>();
 
@@ -18,12 +18,12 @@ public final class ATipoVectorATipo extends PATipo
     }
 
     public ATipoVectorATipo(
-        @SuppressWarnings("hiding") PATipo _aTipo_,
+        @SuppressWarnings("hiding") PATipoBase _aTipoBase_,
         @SuppressWarnings("hiding") PExpr _expr_,
         @SuppressWarnings("hiding") List<?> _aColcheteVector_)
     {
         // Constructor
-        setATipo(_aTipo_);
+        setATipoBase(_aTipoBase_);
 
         setExpr(_expr_);
 
@@ -35,7 +35,7 @@ public final class ATipoVectorATipo extends PATipo
     public Object clone()
     {
         return new ATipoVectorATipo(
-            cloneNode(this._aTipo_),
+            cloneNode(this._aTipoBase_),
             cloneNode(this._expr_),
             cloneList(this._aColcheteVector_));
     }
@@ -46,16 +46,16 @@ public final class ATipoVectorATipo extends PATipo
         ((Analysis) sw).caseATipoVectorATipo(this);
     }
 
-    public PATipo getATipo()
+    public PATipoBase getATipoBase()
     {
-        return this._aTipo_;
+        return this._aTipoBase_;
     }
 
-    public void setATipo(PATipo node)
+    public void setATipoBase(PATipoBase node)
     {
-        if(this._aTipo_ != null)
+        if(this._aTipoBase_ != null)
         {
-            this._aTipo_.parent(null);
+            this._aTipoBase_.parent(null);
         }
 
         if(node != null)
@@ -68,7 +68,7 @@ public final class ATipoVectorATipo extends PATipo
             node.parent(this);
         }
 
-        this._aTipo_ = node;
+        this._aTipoBase_ = node;
     }
 
     public PExpr getExpr()
@@ -126,7 +126,7 @@ public final class ATipoVectorATipo extends PATipo
     public String toString()
     {
         return ""
-            + toString(this._aTipo_)
+            + toString(this._aTipoBase_)
             + toString(this._expr_)
             + toString(this._aColcheteVector_);
     }
@@ -135,9 +135,9 @@ public final class ATipoVectorATipo extends PATipo
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._aTipo_ == child)
+        if(this._aTipoBase_ == child)
         {
-            this._aTipo_ = null;
+            this._aTipoBase_ = null;
             return;
         }
 
@@ -159,9 +159,9 @@ public final class ATipoVectorATipo extends PATipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._aTipo_ == oldChild)
+        if(this._aTipoBase_ == oldChild)
         {
-            setATipo((PATipo) newChild);
+            setATipoBase((PATipoBase) newChild);
             return;
         }
 

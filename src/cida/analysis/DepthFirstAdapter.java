@@ -244,9 +244,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseATipoVectorATipo(ATipoVectorATipo node)
     {
         inATipoVectorATipo(node);
-        if(node.getATipo() != null)
+        if(node.getATipoBase() != null)
         {
-            node.getATipo().apply(this);
+            node.getATipoBase().apply(this);
         }
         if(node.getExpr() != null)
         {
@@ -276,17 +276,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAExpressaoAColcheteVector(AExpressaoAColcheteVector node)
     {
         inAExpressaoAColcheteVector(node);
-        if(node.getColcheteEsq() != null)
-        {
-            node.getColcheteEsq().apply(this);
-        }
         if(node.getExpr() != null)
         {
             node.getExpr().apply(this);
-        }
-        if(node.getColcheteDir() != null)
-        {
-            node.getColcheteDir().apply(this);
         }
         outAExpressaoAColcheteVector(node);
     }
@@ -355,10 +347,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getALocal().apply(this);
         }
-        if(node.getVirgula() != null)
-        {
-            node.getVirgula().apply(this);
-        }
         outALocalVirgulaALocalVirgula(node);
     }
 
@@ -379,10 +367,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getExpr() != null)
         {
             node.getExpr().apply(this);
-        }
-        if(node.getVirgula() != null)
-        {
-            node.getVirgula().apply(this);
         }
         outAExpVirgulaAExpVirgula(node);
     }

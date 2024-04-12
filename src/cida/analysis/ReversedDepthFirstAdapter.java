@@ -258,9 +258,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getExpr().apply(this);
         }
-        if(node.getATipo() != null)
+        if(node.getATipoBase() != null)
         {
-            node.getATipo().apply(this);
+            node.getATipoBase().apply(this);
         }
         outATipoVectorATipo(node);
     }
@@ -279,17 +279,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAExpressaoAColcheteVector(AExpressaoAColcheteVector node)
     {
         inAExpressaoAColcheteVector(node);
-        if(node.getColcheteDir() != null)
-        {
-            node.getColcheteDir().apply(this);
-        }
         if(node.getExpr() != null)
         {
             node.getExpr().apply(this);
-        }
-        if(node.getColcheteEsq() != null)
-        {
-            node.getColcheteEsq().apply(this);
         }
         outAExpressaoAColcheteVector(node);
     }
@@ -354,10 +346,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseALocalVirgulaALocalVirgula(ALocalVirgulaALocalVirgula node)
     {
         inALocalVirgulaALocalVirgula(node);
-        if(node.getVirgula() != null)
-        {
-            node.getVirgula().apply(this);
-        }
         if(node.getALocal() != null)
         {
             node.getALocal().apply(this);
@@ -379,10 +367,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAExpVirgulaAExpVirgula(AExpVirgulaAExpVirgula node)
     {
         inAExpVirgulaAExpVirgula(node);
-        if(node.getVirgula() != null)
-        {
-            node.getVirgula().apply(this);
-        }
         if(node.getExpr() != null)
         {
             node.getExpr().apply(this);

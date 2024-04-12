@@ -4,15 +4,13 @@ import cida.lexer.*;
 import cida.node.*;
 import java.io.*;
 
-import cida.Semantico;
-
 public class Main
 {
  public static void main(String[] args)
  {
   try
   {
-   String arquivo = "teste/sucesso/10_vetores_acucar_sintatico.ci";
+   String arquivo = "teste/sucesso/03_2_delarações_compostas_tipos.ci";
   
    Parser p =
     new Parser(

@@ -5,16 +5,16 @@ package cida.node;
 import cida.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpressaoAColcheteVector extends PAColcheteVector
+public final class AColExpr extends PExpr
 {
     private PExpr _expr_;
 
-    public AExpressaoAColcheteVector()
+    public AColExpr()
     {
         // Constructor
     }
 
-    public AExpressaoAColcheteVector(
+    public AColExpr(
         @SuppressWarnings("hiding") PExpr _expr_)
     {
         // Constructor
@@ -25,14 +25,14 @@ public final class AExpressaoAColcheteVector extends PAColcheteVector
     @Override
     public Object clone()
     {
-        return new AExpressaoAColcheteVector(
+        return new AColExpr(
             cloneNode(this._expr_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpressaoAColcheteVector(this);
+        ((Analysis) sw).caseAColExpr(this);
     }
 
     public PExpr getExpr()
